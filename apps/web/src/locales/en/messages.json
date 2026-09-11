@@ -20241,8 +20241,8 @@
       }
     }
   },
-  "pamRotationScheduleColumnEveryDayUtc": {
-    "message": "Every day at $TIME$ UTC",
+  "pamRotationScheduleColumnEveryDay": {
+    "message": "Every day at $TIME$",
     "placeholders": {
       "time": {
         "content": "$1",
@@ -20250,8 +20250,8 @@
       }
     }
   },
-  "pamRotationScheduleColumnEveryNDaysUtc": {
-    "message": "Every $COUNT$ days at $TIME$ UTC",
+  "pamRotationScheduleColumnEveryNDays": {
+    "message": "Every $COUNT$ days at $TIME$",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -20263,8 +20263,8 @@
       }
     }
   },
-  "pamRotationScheduleColumnEveryMonthUtc": {
-    "message": "Every month at $TIME$ UTC",
+  "pamRotationScheduleColumnEveryMonth": {
+    "message": "Every month at $TIME$",
     "placeholders": {
       "time": {
         "content": "$1",
@@ -20272,8 +20272,8 @@
       }
     }
   },
-  "pamRotationScheduleColumnEveryNMonthsUtc": {
-    "message": "Every $COUNT$ months at $TIME$ UTC",
+  "pamRotationScheduleColumnEveryNMonths": {
+    "message": "Every $COUNT$ months at $TIME$",
     "placeholders": {
       "count": {
         "content": "$1",
