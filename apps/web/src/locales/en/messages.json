@@ -21117,9 +21117,6 @@
   "pamRotationConfigRotateNow": {
     "message": "Rotate now"
   },
-  "pamRotationConfigRotateNowUnavailableTitle": {
-    "message": "Cannot rotate now. The target system is inactive, or the rotation is paused or already in progress."
-  },
   "pamRotationConfigRecordManual": {
     "message": "Record manual rotation"
   },
