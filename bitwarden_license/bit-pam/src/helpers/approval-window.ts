@@ -1,5 +1,4 @@
 import type { AccessRequestView } from "../abstractions/access-lease";
-import { formatTimestamp } from "../date/format-date";
 import { formatCompoundDuration } from "../date/format-duration";
 
 import { requestedWindowSeconds } from "./requested-window";
@@ -11,21 +10,16 @@ export function reasonText(request: Pick<AccessRequestView, "reason">): string |
   return request.reason?.trim() || null;
 }
 
-/** A coarse label for the requested duration, e.g. "4 hours" or "30 min". */
-export function durationLabel(
-  request: Pick<AccessRequestView, "leaseNotBefore" | "leaseNotAfter">,
-): LabelValue {
-  const seconds = requestedWindowSeconds(request);
-  // Rounded before picking the key, so a window just either side of an hour reads "1 hour".
-  const minutes = Math.max(1, Math.round(seconds / 60));
-  if (minutes < 60) {
-    return { key: "pamInboxDurationMinutes", value: minutes };
-  }
-  const hours = Math.round(seconds / 360) / 10;
-  if (hours === 1) {
-    return { key: "pamInboxDuration1Hour", value: null };
-  }
-  return { key: "pamInboxDurationHours", value: hours };
+/**
+ * The requested duration in words, e.g. "2 days, 2 hours". The same spelling the My requests
+ * table uses through `durationCompound`, so the two tabs cannot describe one window differently
+ * — this used to top out at hours and render a two-day grant as "50 hours".
+ */
+export function durationText(
+  window: Pick<AccessRequestView, "leaseNotBefore" | "leaseNotAfter">,
+  locale: string,
+): string {
+  return formatCompoundDuration(locale, requestedWindowSeconds(window), "long");
 }
 
 /**
@@ -67,6 +61,13 @@ export function exactWindow(
   locale: string,
 ): string {
   return `${formatTimestamp(locale, Date.parse(request.leaseNotBefore))} – ${formatTimestamp(locale, Date.parse(request.leaseNotAfter))}`;
+}
+
+/** Whole local calendar days from `from` to `to`, ignoring the time of day. */
+function calendarDaysBetween(from: Date, to: Date): number {
+  const fromDay = new Date(from.getFullYear(), from.getMonth(), from.getDate()).getTime();
+  const toDay = new Date(to.getFullYear(), to.getMonth(), to.getDate()).getTime();
+  return Math.round((toDay - fromDay) / 86_400_000);
 }
 
 /** Whole local calendar days from `from` to `to`, ignoring the time of day. */
