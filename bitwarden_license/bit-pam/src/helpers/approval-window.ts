@@ -1,4 +1,5 @@
 import type { AccessRequestView } from "../abstractions/access-lease";
+import { formatTimestamp } from "../date/format-date";
 import { formatCompoundDuration } from "../date/format-duration";
 
 import { requestedWindowSeconds } from "./requested-window";
@@ -61,13 +62,6 @@ export function exactWindow(
   locale: string,
 ): string {
   return `${formatTimestamp(locale, Date.parse(request.leaseNotBefore))} – ${formatTimestamp(locale, Date.parse(request.leaseNotAfter))}`;
-}
-
-/** Whole local calendar days from `from` to `to`, ignoring the time of day. */
-function calendarDaysBetween(from: Date, to: Date): number {
-  const fromDay = new Date(from.getFullYear(), from.getMonth(), from.getDate()).getTime();
-  const toDay = new Date(to.getFullYear(), to.getMonth(), to.getDate()).getTime();
-  return Math.round((toDay - fromDay) / 86_400_000);
 }
 
 /** Whole local calendar days from `from` to `to`, ignoring the time of day. */
