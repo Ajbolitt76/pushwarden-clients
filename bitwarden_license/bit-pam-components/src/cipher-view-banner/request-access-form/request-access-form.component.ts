@@ -39,8 +39,6 @@ import {
   FormFieldModule,
   IconButtonModule,
   IconModule,
-  SkeletonComponent,
-  SkeletonTextComponent,
   ToastService,
   TypographyModule,
 } from "@bitwarden/components";
@@ -68,8 +66,6 @@ import { RequestWindowFieldsComponent } from "../request-window-fields/request-w
     IconButtonModule,
     IconModule,
     ReactiveFormsModule,
-    SkeletonComponent,
-    SkeletonTextComponent,
     TypographyModule,
     DurationLongPipe,
     I18nPipe,
@@ -99,8 +95,7 @@ export class RequestAccessFormComponent implements OnInit {
 
   /** `null` until the pre-check resolves the approval path; the host offers Send request once set. */
   readonly requestMode = signal<AccessApprovalMode | null>(null);
-  /** `true` until the pre-check returns. */
-  readonly loadingRequestForm = signal(true);
+  protected readonly loadingRequestForm = signal(true);
   protected readonly requestError = signal<string | null>(null);
 
   /**
