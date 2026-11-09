@@ -430,11 +430,11 @@ describe("AuditEventDrawerComponent", () => {
     const link = () =>
       fixture.nativeElement.querySelector("#pam-audit-event-drawer_link_collection");
 
-    it("links the name to the organization vault narrowed to that collection", async () => {
+    it("links the name to the organization vault narrowed to that shared folder", async () => {
       await render();
 
       expect(link().getAttribute("href")).toBe(
-        "/organizations/org-1/vault?collectionId=collection-1",
+        "/organizations/org-1/vault?sharedFolderId=collection-1",
       );
     });
 

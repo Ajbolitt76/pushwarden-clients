@@ -108,7 +108,7 @@
               bitLink
               id="pam-audit-event-drawer_link_collection"
               [routerLink]="route"
-              [queryParams]="vfo1Terminology.collectionQueryParams(row.collectionId)"
+              [queryParams]="{ sharedFolderId: row.collectionId }"
               (click)="closeDrawer()"
               >{{ row.collectionName }}</a
             >

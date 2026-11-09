@@ -35,12 +35,10 @@ import { IconTileVariant } from "@bitwarden/components";
 import {
   ACTIVE_FILTER_ID,
   ControlledAccessFilterOption,
-  MY_REQUESTS_FILTER_ID,
   PENDING_FILTER_ID,
   PRIVILEGED_FILTER_ID,
   READY_FILTER_ID,
   UNAVAILABLE_FILTER_ID,
-  VaultControlledAccessFilter,
 } from "@bitwarden/vault";
 
 import { AccessBadgeTickerService } from "../access-state-badge/access-badge-ticker.service";
@@ -59,30 +57,6 @@ type ControlledAccessFilterDefinition = Omit<ControlledAccessFilterOption, "name
   /** The tile colour, matching the badge's colour. */
   readonly tileVariant?: IconTileVariant;
 };
-
-/** The legacy vault sidebar's "Controlled access" children: state groups. */
-const CONTROLLED_ACCESS_FILTERS: readonly ControlledAccessFilterDefinition[] = [
-  {
-    id: MY_REQUESTS_FILTER_ID,
-    nameKey: "pamTabMyRequests",
-    icon: "bwi-lock-encrypted",
-    kinds: ["pending", "ready", "active"],
-  },
-  {
-    id: PRIVILEGED_FILTER_ID,
-    nameKey: "pamAccessBadgePrivileged",
-    // Single-kind, so it reads the badge's glyph like the state chip's option does. "My
-    // requests" above spans three kinds and so has no one badge to follow.
-    icon: ACCESS_BADGE_LOOK.privileged.icon,
-    kinds: ["privileged"],
-  },
-  {
-    id: UNAVAILABLE_FILTER_ID,
-    nameKey: "pamAccessBadgeUnavailable",
-    icon: "bwi-lock",
-    kinds: ["unavailable"],
-  },
-];
 
 /**
  * The vault table chip's options: one per access state, labelled and iconed like the badge each
@@ -185,12 +159,12 @@ function sameMatches(
 }
 
 /**
- * The "Controlled access" filter: the sidebar's state groups ({@link options$}) and the vault
- * table chip's one-per-state options ({@link stateOptions$}), over one narrowing. Narrowing costs
- * one `getCipherAccessState` call per gated row in a PAM organization, shared across options.
+ * The vault tables' "Controlled access" filter: one option per access state ({@link stateOptions$}),
+ * their matches and the column's sort. A list costs one `getCipherAccessState` call per gated row in
+ * a PAM organization, shared across options.
  */
 @Injectable()
-export class ControlledAccessVaultFilterService implements VaultControlledAccessFilter {
+export class ControlledAccessVaultFilterService {
   private readonly configService = inject(ConfigService);
   private readonly accountService = inject(AccountService);
   private readonly organizationService = inject(OrganizationService);
@@ -212,14 +186,11 @@ export class ControlledAccessVaultFilterService implements VaultControlledAccess
           .sort(),
       ),
       // `organizations$` re-emits on every sync, so dedupe on content to keep an unrelated sync
-      // from re-running the `narrowTo$` fan-out.
+      // from re-reading every row's access state.
       distinctUntilChanged((a, b) => a.length === b.length && a.every((id, i) => id === b[i])),
       map((ids) => new Set(ids)),
       shareReplay({ refCount: true, bufferSize: 1 }),
     );
-
-  readonly options$: Observable<ControlledAccessFilterOption[]> =
-    this.offered$(CONTROLLED_ACCESS_FILTERS);
 
   /** The vault table chip's options (`VAULT_ITEM_FILTER`). */
   readonly stateOptions$: Observable<ControlledAccessStateOption[]> = this.offered$(
@@ -227,28 +198,13 @@ export class ControlledAccessVaultFilterService implements VaultControlledAccess
   );
 
   /**
-   * The access state of each gated row in a list, keyed by the list itself so every option
-   * narrowed over the same rows shares one read. Weakly held: a superseded list is dropped with it.
+   * The access state of each gated row in a list, keyed by the list itself so the matches and the
+   * sort over the same rows share one read. Weakly held: a superseded list is dropped with it.
    */
   private readonly statesByRows = new WeakMap<
     readonly CipherViewLike[],
     Observable<Map<string, AccessBadgeState>>
   >();
-
-  narrow$<C extends CipherViewLike>(optionId: string, ciphers: C[]): Observable<C[]> {
-    const offered = (options: ControlledAccessFilterOption[]) =>
-      options.some((option) => option.id === optionId);
-    const definition = [...CONTROLLED_ACCESS_FILTERS, ...CONTROLLED_ACCESS_STATE_FILTERS].find(
-      (candidate) => candidate.id === optionId,
-    );
-    return combineLatest([this.options$, this.stateOptions$]).pipe(
-      switchMap(([options, stateOptions]) =>
-        definition != null && (offered(options) || offered(stateOptions))
-          ? this.narrowTo$(definition, ciphers)
-          : of(ciphers),
-      ),
-    );
-  }
 
   /**
    * The vault table chip's matches: each state option's ID → the IDs of the rows in that state.
@@ -328,26 +284,11 @@ export class ControlledAccessVaultFilterService implements VaultControlledAccess
             }))
           : [],
       ),
-      // Upstream re-emits on renewal or sync, which would re-run `narrow$`'s fan-out for an
-      // identical option list.
+      // Upstream re-emits on renewal or sync; an identical option list is not a change.
       distinctUntilChanged(
         (a, b) => a.length === b.length && a.every((option, i) => option.id === b[i].id),
       ),
       shareReplay({ refCount: true, bufferSize: 1 }),
-    );
-  }
-
-  private narrowTo$<C extends CipherViewLike>(
-    definition: ControlledAccessFilterDefinition,
-    ciphers: C[],
-  ): Observable<C[]> {
-    return this.accessKinds$(ciphers).pipe(
-      map((kinds) =>
-        ciphers.filter((cipher) => {
-          const kind = kinds.get(String(cipher.id));
-          return kind != null && definition.kinds.includes(kind);
-        }),
-      ),
     );
   }
 

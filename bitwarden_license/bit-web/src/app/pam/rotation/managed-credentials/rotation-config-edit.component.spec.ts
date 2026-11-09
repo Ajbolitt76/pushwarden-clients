@@ -139,7 +139,6 @@ type SetupOptions = {
   description?: RotationConfigDescription;
   /** The org's collections, for naming the credential's shared folders. */
   collections?: CollectionAdminView[];
-  vfo1Enabled?: boolean;
   /** The vault items the page can name; defaults to one named for the loaded config's cipher. */
   ciphers?: CipherView[];
 };
@@ -159,7 +158,6 @@ function setup(options: SetupOptions = {}) {
     draft,
     description,
     collections = [],
-    vfo1Enabled = true,
     ciphers = [vaultItem()],
   } = options;
 
@@ -284,7 +282,7 @@ function setup(options: SetupOptions = {}) {
       { provide: ToastService, useValue: toastService },
       { provide: DialogService, useValue: dialogService },
       { provide: I18nService, useValue: i18nFake },
-      { provide: ConfigService, useValue: { getFeatureFlag$: () => of(vfo1Enabled) } },
+      { provide: ConfigService, useValue: { getFeatureFlag$: () => of(true) } },
       { provide: CollectionAdminService, useValue: collectionAdminService },
       { provide: AccountService, useValue: { activeAccount$: of({ id: "user-1" }) } },
     ],

@@ -18557,15 +18557,6 @@
       }
     }
   },
-  "pamInboxInSharedFolder": {
-    "message": "in $COLLECTION$",
-    "placeholders": {
-      "collection": {
-        "content": "$1",
-        "example": "Production"
-      }
-    }
-  },
   "pamInboxReasonMissing": {
     "message": "No reason provided"
   },

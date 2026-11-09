@@ -51,7 +51,6 @@ import { PAM_ORG_ADMIN_ROUTE } from "@bitwarden/web-vault/app/pam/pam-org-admin-
 import { PAM_ROUTES } from "@bitwarden/web-vault/app/pam/pam-routes.token";
 import { VaultRowAccessActionsService } from "@bitwarden/web-vault/app/vault/components/vault-items/vault-row-access-actions.service";
 import { VAULT_ROW_LEASE_BADGE } from "@bitwarden/web-vault/app/vault/components/vault-items/vault-row-lease-badge.token";
-import { VAULT_CONTROLLED_ACCESS_FILTER } from "@bitwarden/web-vault/app/vault/individual-vault/vault-controlled-access-filter.token";
 import { VAULT_FILTER_GATED_COLLECTION_INDICATOR } from "@bitwarden/web-vault/app/vault/individual-vault/vault-filter/shared/components/pam/vault-filter-gated-collection-indicator.token";
 import { VAULT_GATED_COLLECTION_BANNER } from "@bitwarden/web-vault/app/vault/individual-vault/vault-gated-collection-banner.token";
 
@@ -141,16 +140,11 @@ export function providePam(): SafeProvider[] {
       provide: VAULT_GATED_COLLECTION_BANNER,
       useValue: GatedCollectionBannerComponent,
     }),
-    // One instance behind the sidebar filter, the table chip, and the column, so they share one
-    // per-row state cache.
+    // One instance behind the table chip and the column, so they share one per-row state cache.
     safeProvider({
       provide: ControlledAccessVaultFilterService,
       useClass: ControlledAccessVaultFilterService,
       deps: [],
-    }),
-    safeProvider({
-      provide: VAULT_CONTROLLED_ACCESS_FILTER,
-      useExisting: ControlledAccessVaultFilterService,
     }),
     safeProvider({
       provide: VAULT_ITEM_FILTER,
