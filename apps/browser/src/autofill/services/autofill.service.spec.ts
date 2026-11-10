@@ -823,6 +823,20 @@ describe("AutofillService", () => {
         });
       });
 
+      it.each([
+        ["password", "l2:v1:AAAA"],
+        ["totp", "l2:v1:AAAA"],
+        ["password", "l2:v9:unknown-version"],
+      ] as const)("never fills an L2 %s (%s)", async (field, value) => {
+        autofillOptions.cipher.login[field] = value;
+        jest.spyOn(BrowserApi, "tabSendMessage");
+
+        expect(await autofillService.doAutoFill(autofillOptions)).toEqual({
+          outcome: AutofillOutcome.Denied,
+        });
+        expect(BrowserApi.tabSendMessage).not.toHaveBeenCalled();
+      });
+
       // One refused frame does not undo a credential placed in another: the fill happened, and the
       // caller needs to know it happened.
       it("reports a fill when another frame was refused", async () => {

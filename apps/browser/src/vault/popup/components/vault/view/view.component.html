@@ -9,6 +9,11 @@
   </popup-header>
 
   @if (cipher) {
+    @if (isL2Cipher(cipher)) {
+      <bit-callout type="info" [title]="'l2LevelBadge' | i18n" data-testid="l2-callout">
+        {{ "l2ItemProtected" | i18n }}
+      </bit-callout>
+    }
     <app-cipher-view [cipher]="cipher">
       @if (showAutofillButton()) {
         <button
@@ -34,7 +39,7 @@
 
   @if (showFooter$ | async) {
     <popup-footer slot="footer">
-      @if (!cipher.isDeleted) {
+      @if (!cipher.isDeleted && !isL2Cipher(cipher)) {
         <button buttonType="primary" type="button" bitButton (click)="editCipher()">
           {{ "edit" | i18n }}
         </button>

@@ -1,12 +1,12 @@
 {
   "appName": {
-    "message": "Bitwarden"
+    "message": "PushWarden"
   },
   "appLogoLabel": {
-    "message": "Bitwarden logo"
+    "message": "PushWarden logo"
   },
   "extName": {
-    "message": "Bitwarden 密碼管理工具",
+    "message": "PushWarden Password Manager",
     "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
   },
   "extNameBeta": {
@@ -14,7 +14,7 @@
     "description": "Extension name for the beta channel, MUST be less than 40 characters (Safari restriction)"
   },
   "extDesc": {
-    "message": "無論在家、在工作場所或外出時，Bitwarden 都能輕鬆保護您的所有密碼、密碼金鑰及敏感資訊。",
+    "message": "Bitwarden-compatible password manager that keeps sensitive logins on your phone: approve fills there or use a second password.",
     "description": "Extension description, MUST be less than 112 characters (Safari restriction)"
   },
   "loginOrCreateNewAccount": {

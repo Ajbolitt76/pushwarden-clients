@@ -1,12 +1,11 @@
 {
   "manifest_version": 2,
   "name": "__MSG_extName__",
-  "short_name": "Bitwarden",
+  "short_name": "PushWarden",
   "version": "2026.10.2",
   "description": "__MSG_extDesc__",
   "default_locale": "en",
-  "author": "Bitwarden Inc.",
-  "homepage_url": "https://bitwarden.com",
+  "author": "PushWarden contributors (fork of Bitwarden, not affiliated with Bitwarden, Inc.)",
   "icons": {
     "16": "images/icon16.png",
     "32": "images/icon32.png",
@@ -140,7 +139,7 @@
   ],
   "__firefox__browser_specific_settings": {
     "gecko": {
-      "id": "{446900e4-71c2-419f-a6a7-df9c091e268b}",
+      "id": "pushwarden@corex",
       "strict_min_version": "91.0"
     }
   },

@@ -26,14 +26,15 @@
 
   --color-background: 255 255 255;
   --color-background-alt: 243 246 249;
-  --color-background-alt2: 23 92 219;
-  --color-background-alt3: 22 55 146;
-  --color-background-alt4: 2 15 102;
+  --color-background-alt2: 39 50 74;
+  --color-background-alt3: 30 39 57;
+  --color-background-alt4: 15 20 30;
 
-  --color-primary-100: 219 229 246;
-  --color-primary-300: 121 161 233;
-  --color-primary-600: 23 93 220;
-  --color-primary-700: 26 65 172;
+  /* PushWarden slate palette (from the logo: #27324A / #D9E1EE). */
+  --color-primary-100: 230 234 242;
+  --color-primary-300: 169 184 214;
+  --color-primary-600: 39 50 74;
+  --color-primary-700: 30 39 57;
 
   --color-secondary-100: 230 233 239;
   --color-secondary-300: 168 179 200;
@@ -66,11 +67,11 @@
   --color-text-alt2: 255 255 255;
   --color-text-code: 192 17 118;
 
-  --color-hover-default: rgb(26 65 172 / 0.1);
+  --color-hover-default: rgb(39 50 74 / 0.1);
   --color-hover-contrast: rgb(255 255 255 / 0.15);
 
-  --color-marketing-logo: 23 93 220;
-  --color-bw-blue: 23 93 220;
+  --color-marketing-logo: 39 50 74;
+  --color-bw-blue: 39 50 74;
 
   --tw-ring-offset-color: #ffffff;
 
@@ -81,7 +82,7 @@
   --color-illustration-fill-secondary: var(--color-brand-200);
   --color-illustration-fill-tertiary: var(--color-brand-050);
   --color-illustration-fill-accent: var(--color-teal-400);
-  --color-illustration-logo: 23 93 220;
+  --color-illustration-logo: 39 50 74;
 
   /* ========================================
    * NEW COLOR PALETTE (Hex format)
@@ -91,20 +92,21 @@
    * ======================================== */
 
   /* Brand Colors */
-  --color-brand-050: #eef6ff;
-  --color-brand-100: #dbeafe;
-  --color-brand-200: #bedbff;
-  --color-brand-300: #8ec5ff;
-  --color-brand-400: #6baefa;
-  --color-brand-500: #418bfb;
-  --color-brand-600: #2a70f4;
-  --color-brand-700: #175ddc;
-  --color-brand-700-rgb: 23, 93, 220;
-  --color-brand-800: #0d43af;
-  --color-brand-900: #0c3276;
-  --color-brand-950: #162455;
-  --color-brand-800-rgb: 13, 67, 175;
-  --color-brand-950-rgb: 22, 36, 85;
+  /* PushWarden slate scale: 700 is the logo slate, 200 the logo's light slate. */
+  --color-brand-050: #f3f5f9;
+  --color-brand-100: #e6eaf2;
+  --color-brand-200: #d9e1ee;
+  --color-brand-300: #c3cee3;
+  --color-brand-400: #a9b8d6;
+  --color-brand-500: #8595b8;
+  --color-brand-600: #4f5f82;
+  --color-brand-700: #27324a;
+  --color-brand-700-rgb: 39, 50, 74;
+  --color-brand-800: #1e2739;
+  --color-brand-900: #161d2b;
+  --color-brand-950: #0f141e;
+  --color-brand-800-rgb: 30, 39, 57;
+  --color-brand-950-rgb: 15, 20, 30;
 
   /* Gray Colors */
   --color-gray-050: #f7f9fa;
@@ -500,10 +502,10 @@
   --color-background-alt3: 48 57 70;
   --color-background-alt4: 18 26 39;
 
-  --color-primary-100: 29 46 99;
-  --color-primary-300: 26 65 172;
-  --color-primary-600: 101 171 255;
-  --color-primary-700: 170 195 239;
+  --color-primary-100: 39 50 74;
+  --color-primary-300: 79 95 130;
+  --color-primary-600: 169 184 214;
+  --color-primary-700: 195 206 227;
 
   --color-secondary-100: 48 57 70;
   --color-secondary-300: 82 91 106;
@@ -536,11 +538,11 @@
   --color-text-alt2: 255 255 255;
   --color-text-code: 255 143 208;
 
-  --color-hover-default: rgb(170 195 239 / 0.1);
+  --color-hover-default: rgb(195 206 227 / 0.1);
   --color-hover-contrast: rgb(0 0 0 / 0.15);
 
   --color-marketing-logo: 255 255 255;
-  --color-bw-blue: 23 93 220;
+  --color-bw-blue: 39 50 74;
 
   --tw-ring-offset-color: #1f242e;
 

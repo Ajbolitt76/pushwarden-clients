@@ -1,0 +1,50 @@
+<popup-page>
+  <div class="tw-flex tw-flex-col tw-items-center tw-text-center tw-mb-4">
+    <bit-svg
+      class="tw-size-16 tw-mb-3"
+      [content]="shield"
+      [ariaLabel]="'appLogoLabel' | i18n"
+    ></bit-svg>
+    <h1 bitTypography="h3">{{ "welcomeTitle" | i18n }}</h1>
+    <p bitTypography="body1" class="tw-mb-0">{{ "welcomeIntro" | i18n }}</p>
+  </div>
+
+  <bit-section>
+    <bit-section-header>
+      <h2 bitTypography="h6">{{ "welcomeProtectedTitle" | i18n }}</h2>
+    </bit-section-header>
+    <bit-card>
+      <p bitTypography="body2" class="tw-mb-0">{{ "welcomeProtectedBody" | i18n }}</p>
+    </bit-card>
+  </bit-section>
+
+  <bit-section>
+    <bit-section-header>
+      <h2 bitTypography="h6">{{ "welcomeSetupTitle" | i18n }}</h2>
+    </bit-section-header>
+    <bit-card>
+      <ol class="tw-list-decimal tw-ps-5 tw-mb-0 tw-space-y-2">
+        <li bitTypography="body2">{{ "welcomeSetupStep1" | i18n }}</li>
+        <li bitTypography="body2">{{ "welcomeSetupStep2" | i18n }}</li>
+        <li bitTypography="body2">{{ "welcomeSetupStep3" | i18n }}</li>
+      </ol>
+    </bit-card>
+  </bit-section>
+
+  <p bitTypography="helper" class="tw-text-muted tw-text-center tw-mb-0">
+    {{ "welcomeNotAffiliated" | i18n }}
+  </p>
+
+  <popup-footer slot="footer">
+    <button
+      id="welcome_button_get-started"
+      type="button"
+      bitButton
+      buttonType="primary"
+      class="tw-w-full"
+      (click)="getStarted()"
+    >
+      {{ "welcomeGetStarted" | i18n }}
+    </button>
+  </popup-footer>
+</popup-page>

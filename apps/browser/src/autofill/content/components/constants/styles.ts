@@ -8,10 +8,10 @@ const lightTheme = {
   },
   shadow: `rgba(168 179 200)`,
   primary: {
-    100: `rgba(219, 229, 246)`,
-    300: `rgba(121, 161, 233)`,
-    600: `rgba(23, 93, 220)`,
-    700: `rgba(26, 65, 172)`,
+    100: `rgba(230, 234, 242)`,
+    300: `rgba(169, 184, 214)`,
+    600: `rgba(39, 50, 74)`,
+    700: `rgba(30, 39, 57)`,
   },
   secondary: {
     100: `rgba(230, 233, 239)`,
@@ -54,11 +54,11 @@ const lightTheme = {
   background: {
     DEFAULT: `rgba(255, 255, 255)`,
     alt: `rgba(243, 246, 249)`,
-    alt2: `rgba(23, 92, 219)`,
-    alt3: `rgba(26, 65, 172)`,
-    alt4: `rgba(2, 15, 102)`,
+    alt2: `rgba(39, 50, 74)`,
+    alt3: `rgba(30, 39, 57)`,
+    alt4: `rgba(15, 20, 30)`,
   },
-  brandLogo: `rgba(23, 93, 220)`,
+  brandLogo: `rgba(39, 50, 74)`,
   passwordSpecial: `rgba(184, 0, 23)`,
   passwordNumber: `rgba(20, 82, 193)`,
 };
@@ -69,10 +69,10 @@ const darkTheme = {
   },
   shadow: `rgba(0, 0, 0)`,
   primary: {
-    100: `rgba(26, 39, 78)`,
-    300: `rgba(26, 65, 172)`,
-    600: `rgba(101, 171, 255)`,
-    700: `rgba(170, 195, 239)`,
+    100: `rgba(39, 50, 74)`,
+    300: `rgba(79, 95, 130)`,
+    600: `rgba(169, 184, 214)`,
+    700: `rgba(195, 206, 227)`,
   },
   secondary: {
     100: `rgba(48, 57, 70)`,

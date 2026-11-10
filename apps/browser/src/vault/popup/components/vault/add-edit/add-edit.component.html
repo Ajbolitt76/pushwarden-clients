@@ -16,30 +16,38 @@
   </popup-header>
 
   @if (!loading) {
-    <vault-cipher-form
-      formId="cipherForm"
-      [config]="config"
-      (cipherSaved)="onCipherSaved($event)"
-      [beforeSubmit]="checkFido2UserVerification"
-      [submitBtn]="submitBtn"
-    >
-      <app-open-attachments
-        slot="attachment-button"
-        [cipherId]="originalCipherId"
-      ></app-open-attachments>
-    </vault-cipher-form>
+    @if (isL2) {
+      <bit-callout type="info" [title]="'l2LevelBadge' | i18n" data-testid="l2-edit-callout">
+        {{ "l2EditCallout" | i18n }}
+      </bit-callout>
+    } @else {
+      <vault-cipher-form
+        formId="cipherForm"
+        [config]="config"
+        (cipherSaved)="onCipherSaved($event)"
+        [beforeSubmit]="checkFido2UserVerification"
+        [submitBtn]="submitBtn"
+      >
+        <app-open-attachments
+          slot="attachment-button"
+          [cipherId]="originalCipherId"
+        ></app-open-attachments>
+      </vault-cipher-form>
+    }
   }
 
   <popup-footer slot="footer">
-    @if (saveAndFillEnabled) {
+    @if (saveAndFillEnabled && !isL2) {
       <button [bitAction]="submitAndFill" type="button" bitButton buttonType="primary">
         {{ "saveAndFill" | i18n }}
       </button>
     }
+    <!-- Hidden, not removed: the form above references #submitBtn. -->
     <button
       bitButton
       type="submit"
       form="cipherForm"
+      [class.tw-hidden]="isL2"
       [buttonType]="saveAndFillEnabled ? 'secondary' : 'primary'"
       #submitBtn
     >

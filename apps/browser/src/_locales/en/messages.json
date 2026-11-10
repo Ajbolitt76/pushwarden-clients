@@ -1,20 +1,20 @@
 {
   "appName": {
-    "message": "Bitwarden"
+    "message": "PushWarden"
   },
   "appLogoLabel": {
-    "message": "Bitwarden logo"
+    "message": "PushWarden logo"
   },
   "extName": {
-    "message": "Bitwarden Password Manager",
+    "message": "PushWarden Password Manager",
     "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
   },
   "extNameBeta": {
-    "message": "Bitwarden Password Manager Beta",
+    "message": "PushWarden Password Manager Beta",
     "description": "Extension name for the beta channel, MUST be less than 40 characters (Safari restriction)"
   },
   "extDesc": {
-    "message": "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information",
+    "message": "Bitwarden-compatible password manager that keeps sensitive logins on your phone: approve fills there or use a second password.",
     "description": "Extension description, MUST be less than 112 characters (Safari restriction)"
   },
   "loginOrCreateNewAccount": {
@@ -356,7 +356,7 @@
     "message": "Log out"
   },
   "aboutBitwarden": {
-    "message": "About Bitwarden"
+    "message": "About PushWarden"
   },
   "about": {
     "message": "About"
@@ -1081,10 +1081,10 @@
     "message": "Make 2-step verification seamless"
   },
   "totpHelper": {
-    "message": "Bitwarden can store and fill 2-step verification codes. Copy and paste the key into this field."
+    "message": "PushWarden can store and fill 2-step verification codes. Copy and paste the key into this field."
   },
   "totpHelperWithCapture": {
-    "message": "Bitwarden can store and fill 2-step verification codes. Select the camera icon to take a screenshot of this website's authenticator QR code, or copy and paste the key into this field."
+    "message": "PushWarden can store and fill 2-step verification codes. Select the camera icon to take a screenshot of this website's authenticator QR code, or copy and paste the key into this field."
   },
   "learnMoreAboutAuthenticators": {
     "message": "Learn more about authenticators"
@@ -1333,7 +1333,7 @@
     "message": "Jump to setting"
   },
   "notificationAddDesc": {
-    "message": "Should Bitwarden remember this password for you?"
+    "message": "Should PushWarden remember this password for you?"
   },
   "notificationAddSave": {
     "message": "Save"
@@ -1369,11 +1369,11 @@
     }
   },
   "notificationLoginSaveConfirmation": {
-    "message": "saved to Bitwarden.",
+    "message": "saved to PushWarden.",
     "description": "Shown to user after item is saved."
   },
   "notificationLoginUpdatedConfirmation": {
-    "message": "updated in Bitwarden.",
+    "message": "updated in PushWarden.",
     "description": "Shown to user after item is updated."
   },
   "selectItemAriaLabel": {
@@ -1471,13 +1471,13 @@
     "message": "Ask to save new passkeys or log in with passkeys stored in your vault. Applies to all logged in accounts."
   },
   "notificationChangeDesc": {
-    "message": "Do you want to update this password in Bitwarden?"
+    "message": "Do you want to update this password in PushWarden?"
   },
   "notificationChangeSave": {
     "message": "Update"
   },
   "notificationUnlockDesc": {
-    "message": "Unlock your Bitwarden vault to complete the autofill request."
+    "message": "Unlock your PushWarden vault to complete the autofill request."
   },
   "notificationUnlock": {
     "message": "Unlock"
@@ -2236,7 +2236,7 @@
     "message": "Easily find autofill suggestions"
   },
   "autofillSpotlightDesc": {
-    "message": "Turn off your browser's autofill settings, so they don't conflict with Bitwarden."
+    "message": "Turn off your browser's autofill settings, so they don't conflict with PushWarden."
   },
   "turnOffBrowserAutofill": {
     "message": "Turn off $BROWSER$ autofill",
@@ -3242,10 +3242,10 @@
     "message": "Set PIN"
   },
   "setYourPinCode": {
-    "message": "Set your PIN code for unlocking Bitwarden. Your PIN settings will be reset if you ever fully log out of the application."
+    "message": "Set your PIN code for unlocking PushWarden. Your PIN settings will be reset if you ever fully log out of the application."
   },
   "setPinCode": {
-    "message": "You can use this PIN to unlock Bitwarden. Your PIN will be reset if you ever fully log out of the application."
+    "message": "You can use this PIN to unlock PushWarden. Your PIN will be reset if you ever fully log out of the application."
   },
   "pinRequired": {
     "message": "PIN code is required."
@@ -3381,7 +3381,7 @@
     "message": "The form is hosted by a different domain than the URI of your saved login. Choose OK to autofill anyway, or Cancel to stop."
   },
   "autofillIframeWarningTip": {
-    "message": "To prevent this warning in the future, save this URI, $HOSTNAME$, to your Bitwarden login item for this site.",
+    "message": "To prevent this warning in the future, save this URI, $HOSTNAME$, to your PushWarden login item for this site.",
     "placeholders": {
       "hostname": {
         "content": "$1",
@@ -3390,7 +3390,7 @@
     }
   },
   "topLayerHijackWarning": {
-    "message": "This page is interfering with the Bitwarden experience. The Bitwarden inline menu has been temporarily disabled as a safety measure."
+    "message": "This page is interfering with the PushWarden experience. The PushWarden inline menu has been temporarily disabled as a safety measure."
   },
   "setMasterPassword": {
     "message": "Set master password"
@@ -3595,7 +3595,7 @@
     "message": "Excluded domains"
   },
   "excludedDomainsDesc": {
-    "message": "Bitwarden will not ask to save login details for these domains. You must refresh the page for changes to take effect."
+    "message": "PushWarden will not ask to save login details for these domains. You must refresh the page for changes to take effect."
   },
   "blockedDomainsDesc": {
     "message": "Autofill and other related features will not be offered for these websites. You must refresh the page for changes to take effect."
@@ -3727,24 +3727,24 @@
     "message": "Illustration of a list of logins that are at-risk."
   },
   "welcomeDialogGraphicAlt": {
-    "message": "Illustration of the layout of the Bitwarden vault page."
+    "message": "Illustration of the layout of the PushWarden vault page."
   },
   "generatePasswordSlideDesc": {
-    "message": "Quickly generate a strong, unique password with the Bitwarden autofill menu on the at-risk site.",
+    "message": "Quickly generate a strong, unique password with the PushWarden autofill menu on the at-risk site.",
     "description": "Description of the generate password slide on the at-risk password page carousel"
   },
   "generatePasswordSlideImgAltPeriod": {
-    "message": "Illustration of the Bitwarden autofill menu displaying a generated password."
+    "message": "Illustration of the PushWarden autofill menu displaying a generated password."
   },
   "updateInBitwarden": {
-    "message": "Update in Bitwarden"
+    "message": "Update in PushWarden"
   },
   "updateInBitwardenSlideDesc": {
-    "message": "Bitwarden will then prompt you to update the password in the password manager.",
+    "message": "PushWarden will then prompt you to update the password in the password manager.",
     "description": "Description of the update in Bitwarden slide on the at-risk password page carousel"
   },
   "updateInBitwardenSlideImgAltPeriod": {
-    "message": "Illustration of a Bitwarden’s notification prompting the user to update the login."
+    "message": "Illustration of a PushWarden’s notification prompting the user to update the login."
   },
   "turnOnAutofill": {
     "message": "Turn on autofill"
@@ -4259,10 +4259,10 @@
     "message": "Error getting autofill data"
   },
   "couldNotDecryptVaultItem": {
-    "message": "Bitwarden could not decrypt the vault item listed below. Contact Bitwarden Customer Support and provide the item ID below to see if it can be recovered."
+    "message": "PushWarden could not decrypt the vault item listed below. Contact Bitwarden Customer Support and provide the item ID below to see if it can be recovered."
   },
   "couldNotDecryptVaultItems": {
-    "message": "Bitwarden could not decrypt the vault items listed below. Contact Bitwarden Customer Support and provide the item IDs below to see if they can be recovered."
+    "message": "PushWarden could not decrypt the vault items listed below. Contact Bitwarden Customer Support and provide the item IDs below to see if they can be recovered."
   },
   "itemId": {
     "message": "Item ID",
@@ -4372,11 +4372,11 @@
     }
   },
   "forwarderGeneratedBy": {
-    "message": "Generated by Bitwarden.",
+    "message": "Generated by PushWarden.",
     "description": "Displayed with the address on the forwarding service's configuration screen."
   },
   "forwarderGeneratedByWithWebsite": {
-    "message": "Website: $WEBSITE$. Generated by Bitwarden.",
+    "message": "Website: $WEBSITE$. Generated by PushWarden.",
     "description": "Displayed with the address on the forwarding service's configuration screen.",
     "placeholders": {
       "WEBSITE": {
@@ -5098,15 +5098,15 @@
     "message": "Skip to content"
   },
   "bitwardenOverlayButton": {
-    "message": "Bitwarden autofill menu button",
+    "message": "PushWarden autofill menu button",
     "description": "Page title for the iframe containing the overlay button"
   },
   "toggleBitwardenVaultOverlay": {
-    "message": "Toggle Bitwarden autofill menu",
+    "message": "Toggle PushWarden autofill menu",
     "description": "Screen reader and tool tip label for the overlay button"
   },
   "bitwardenVault": {
-    "message": "Bitwarden autofill menu",
+    "message": "PushWarden autofill menu",
     "description": "Page title in overlay"
   },
   "unlockYourAccountToViewMatchingLogins": {
@@ -5178,7 +5178,7 @@
     "description": "Screen reader text (aria-label) for new identity button within inline menu"
   },
   "bitwardenOverlayMenuAvailable": {
-    "message": "Bitwarden autofill menu available. Press the down arrow key to select.",
+    "message": "PushWarden autofill menu available. Press the down arrow key to select.",
     "description": "Screen reader text for announcing when the overlay opens on the page"
   },
   "turnOn": {
@@ -5725,7 +5725,7 @@
     "description": "Followed by a literal filename (my_passwords.json) rendered as code."
   },
   "importGnomeInstructionsFileHere": {
-    "message": "file here to Bitwarden.",
+    "message": "file here to PushWarden.",
     "description": "Follows the my_passwords.json filename."
   },
   "importPasswordagentInstructions": {
@@ -6438,7 +6438,7 @@
     "description": "Label indicating the most common import formats"
   },
   "uriMatchDefaultStrategyHint": {
-    "message": "URI match detection is how Bitwarden identifies autofill suggestions.",
+    "message": "URI match detection is how PushWarden identifies autofill suggestions.",
     "description": "Explains to the user that URI match detection determines how Bitwarden suggests autofill options, and clarifies that this default strategy applies when no specific match detection is set for a login item."
   },
   "regExAdvancedOptionWarning": {
@@ -6482,15 +6482,15 @@
     "description": "Body content for dialog which asks if the user wants to proceed to the browser's keyboard shortcut settings page"
   },
   "overrideDefaultBrowserAutofillTitle": {
-    "message": "Make Bitwarden your default password manager?",
+    "message": "Make PushWarden your default password manager?",
     "description": "Dialog title facilitating the ability to override a chrome browser's default autofill behavior"
   },
   "overrideDefaultBrowserAutofillDescription": {
-    "message": "Ignoring this option may cause conflicts between Bitwarden autofill suggestions and your browser's.",
+    "message": "Ignoring this option may cause conflicts between PushWarden autofill suggestions and your browser's.",
     "description": "Dialog message facilitating the ability to override a chrome browser's default autofill behavior"
   },
   "overrideDefaultBrowserAutoFillSettings": {
-    "message": "Make Bitwarden your default password manager",
+    "message": "Make PushWarden your default password manager",
     "description": "Label for the setting that allows overriding the default browser autofill settings"
   },
   "defaultPasswordManagerCalloutTitle": {
@@ -6498,7 +6498,7 @@
     "description": "Title for the callout that prompts users to set Bitwarden as their default password manager"
   },
   "defaultPasswordManagerCalloutDesc": {
-    "message": "You'll be asked to grant a $BROWSER$ browser permission to make Bitwarden your default password manager.",
+    "message": "You'll be asked to grant a $BROWSER$ browser permission to make PushWarden your default password manager.",
     "description": "Description for the callout that prompts users to set Bitwarden as their default password manager",
     "placeholders": {
       "browser": {
@@ -6508,11 +6508,11 @@
     }
   },
   "privacyPermissionAdditionNotGrantedTitle": {
-    "message": "Unable to set Bitwarden as the default password manager",
+    "message": "Unable to set PushWarden as the default password manager",
     "description": "Title for the dialog that appears when the user has not granted the extension permission to set privacy settings"
   },
   "privacyPermissionAdditionNotGrantedDescription": {
-    "message": "You must grant browser privacy permissions to Bitwarden to set it as the default password manager.",
+    "message": "You must grant browser privacy permissions to PushWarden to set it as the default password manager.",
     "description": "Description for the dialog that appears when the user has not granted the extension permission to set privacy settings"
   },
   "makeDefault": {
@@ -6520,10 +6520,10 @@
     "description": "Button text for the setting that allows overriding the default browser autofill settings"
   },
   "defaultPasswordManagerPromptTitle": {
-    "message": "Make Bitwarden your browser's default password manager"
+    "message": "Make PushWarden your browser's default password manager"
   },
   "defaultPasswordManagerPromptTitleV2": {
-    "message": "Make Bitwarden your default password manager",
+    "message": "Make PushWarden your default password manager",
     "description": "Label for the setting to make Bitwarden the default password manager"
   },
   "defaultPasswordManagerSettingHintV2": {
@@ -6535,13 +6535,13 @@
     "description": "Link text to browser autofill settings in the default password manager setting hint."
   },
   "defaultPasswordManagerPromptStep2AfterAllow": {
-    "message": "from the browser prompt to give Bitwarden permission to change your settings."
+    "message": "from the browser prompt to give PushWarden permission to change your settings."
   },
   "defaultPasswordManagerPromptStep3": {
     "message": "We'll turn off your browser's built-in password manager so you can enjoy a secure login experience."
   },
   "defaultPasswordManagerSuccessToast": {
-    "message": "Made Bitwarden your default browser password manager"
+    "message": "Made PushWarden your default browser password manager"
   },
   "allow": {
     "message": "Allow",
@@ -7549,7 +7549,7 @@
     "description": "Notification message for when a password has been regenerated"
   },
   "saveToBitwarden": {
-    "message": "Save to Bitwarden",
+    "message": "Save to PushWarden",
     "description": "Confirmation message for saving a login to Bitwarden"
   },
   "spaceCharacterDescriptor": {
@@ -7793,13 +7793,13 @@
     "message": "Use folders to organize vault items. They're just for you. No one else will see or use them."
   },
   "introCarouselLabel": {
-    "message": "Welcome to Bitwarden"
+    "message": "Welcome to PushWarden"
   },
   "securityPrioritized": {
     "message": "Security, prioritized"
   },
   "securityPrioritizedBody": {
-    "message": "Save logins, cards, and identities to your secure vault. Bitwarden uses zero-knowledge, end-to-end encryption to protect what’s important to you."
+    "message": "Save logins, cards, and identities to your secure vault. PushWarden uses zero-knowledge, end-to-end encryption to protect what’s important to you."
   },
   "quickLogin": {
     "message": "Quick and easy login"
@@ -7826,7 +7826,7 @@
     "message": "Import existing passwords"
   },
   "emptyVaultNudgeBody": {
-    "message": "Use the importer to quickly transfer logins to Bitwarden without manually adding them."
+    "message": "Use the importer to quickly transfer logins to PushWarden without manually adding them."
   },
   "emptyVaultNudgeButton": {
     "message": "Import now"
@@ -7954,7 +7954,7 @@
     "message": "You do not have permissions to view this page. Try logging in with a different account."
   },
   "wasmNotSupported": {
-    "message": "WebAssembly is not supported on your browser or is not enabled. WebAssembly is required to use the Bitwarden app.",
+    "message": "WebAssembly is not supported on your browser or is not enabled. WebAssembly is required to use the PushWarden app.",
     "description": "'WebAssembly' is a technical term and should not be translated."
   },
   "showMore": {
@@ -8249,7 +8249,7 @@
     "message": "Synchronize unlock with desktop"
   },
   "syncUnlockWithDesktopDescription1": {
-    "message": "The Bitwarden browser extension and desktop app lock and unlock together. Biometrics will be used if available."
+    "message": "The PushWarden browser extension and the Bitwarden desktop app lock and unlock together. Biometrics will be used if available."
   },
   "sharedUnlockUnavailableUntrustedDevice": {
     "message": "Shared unlock is not available because you chose not to remember this device. To enable this setting, try logging in again."
@@ -8258,13 +8258,13 @@
     "message": "New permission needed"
   },
   "sharedUnlockDesktopPermissionDesc": {
-    "message": "To use shared unlock, Bitwarden needs permission to communicate with the desktop app. When you continue, your browser will ask you to approve it."
+    "message": "To use shared unlock, PushWarden needs permission to communicate with the desktop app. When you continue, your browser will ask you to approve it."
   },
   "sharedUnlockDesktopPermissionWarning": {
-    "message": "Bitwarden will lock and reload. After you approve, the extension reloads and will lock your vault."
+    "message": "PushWarden will lock and reload. After you approve, the extension reloads and will lock your vault."
   },
   "biometricPermissionDesc": {
-    "message": "To use biometric unlock, Bitwarden needs permission to communicate with the desktop app. When you continue, your browser will ask you to approve it."
+    "message": "To use biometric unlock, PushWarden needs permission to communicate with the desktop app. When you continue, your browser will ask you to approve it."
   },
   "enterMonth": {
     "message": "Enter month."
@@ -8767,15 +8767,15 @@
     "message": "Unable to determine item ID"
   },
   "newExperienceDialogTitle": {
-    "message": "Bitwarden has a new look",
+    "message": "PushWarden has a new look",
     "description": "Title of the dialog that introduces the redesigned vault to existing users."
   },
   "newExperienceDialogDesc": {
-    "message": "Better experience, same trusted security. The Bitwarden vault has been redesigned based on your feedback, so things are easier to find and work like you'd expect.",
+    "message": "Better experience, same trusted security. The PushWarden vault has been redesigned based on your feedback, so things are easier to find and work like you'd expect.",
     "description": "Body copy of the dialog that introduces the redesigned vault to existing users."
   },
   "newExperienceDialogImgAlt": {
-    "message": "A preview of the redesigned Bitwarden vault.",
+    "message": "A preview of the redesigned PushWarden vault.",
     "description": "Alt text for the screenshot shown in the dialog that introduces the redesigned vault."
   },
   "exploreTheNewVault": {
@@ -8865,5 +8865,173 @@
   },
   "httpAuthenticationTurnedOffNotice": {
     "message": "This item has master password re-prompt turned on, so autofill for browser login prompts was turned off. Save the item to keep this change."
+  },
+  "l2FillTitle": {
+    "message": "Protected item"
+  },
+  "l2FillDesc": {
+    "message": "This login is protected. Approve it on your phone, or type your protection password, to fill it on $HOST$.",
+    "placeholders": {
+      "host": {
+        "content": "$1",
+        "example": "github.com"
+      }
+    }
+  },
+  "l2ApproveOnPhone": {
+    "message": "Approve on phone"
+  },
+  "l2WaitingForPhone": {
+    "message": "Waiting for your phone…"
+  },
+  "l2Password": {
+    "message": "Protection password"
+  },
+  "l2PasswordHint": {
+    "message": "Only type it on a computer you trust. It unlocks all your protected items."
+  },
+  "l2FillWithPassword": {
+    "message": "Fill with protection password"
+  },
+  "l2ErrorNotPaired": {
+    "message": "This browser isn't paired with a phone. Pair it in Settings → Phone approval."
+  },
+  "l2ErrorWrongPassword": {
+    "message": "Wrong protection password."
+  },
+  "l2ErrorNoKeyItem": {
+    "message": "No protection key was found in your vault. On your phone, open Settings → Vault → Protected items to set it up."
+  },
+  "l2ErrorMultipleKeyItems": {
+    "message": "Your vault has more than one protection key item. Keep only one."
+  },
+  "l2ErrorHostNotAllowed": {
+    "message": "This item can't be filled on this website."
+  },
+  "l2ErrorPhoneDenied": {
+    "message": "The fill was denied on your phone."
+  },
+  "l2ErrorPhoneRejected": {
+    "message": "Your phone refused the request. Check the website and try again."
+  },
+  "l2ErrorTimeout": {
+    "message": "Your phone didn't answer in time."
+  },
+  "l2ErrorRelay": {
+    "message": "Couldn't reach the relay server."
+  },
+  "l2ErrorPairing": {
+    "message": "Pairing failed. Try again from the phone's pairing screen."
+  },
+  "l2ErrorGeneric": {
+    "message": "Couldn't unlock this item."
+  },
+  "l2PhoneApproval": {
+    "message": "Phone approval"
+  },
+  "l2PairingDesc": {
+    "message": "On your phone, open Settings → Vault → Protected items → Computer approvals. Then enter the relay address and the phone ID it shows."
+  },
+  "l2RelayUrl": {
+    "message": "Relay address"
+  },
+  "l2PhoneId": {
+    "message": "Phone ID"
+  },
+  "l2PcName": {
+    "message": "Name for this computer"
+  },
+  "l2Pair": {
+    "message": "Pair"
+  },
+  "l2ComparePhrase": {
+    "message": "Check that your phone shows exactly these words, then approve on the phone and confirm here."
+  },
+  "l2PhraseMatches": {
+    "message": "Words match"
+  },
+  "l2PairedWith": {
+    "message": "Paired with phone $ID$.",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "ab12-cd34"
+      }
+    }
+  },
+  "l2Unpair": {
+    "message": "Unpair"
+  },
+  "l2CannotCopy": {
+    "message": "Protected values can't be copied on this computer. Fill them instead, or copy them on your phone."
+  },
+  "l2EditOnPhone": {
+    "message": "This item is protected. Change its password or verification code on your phone."
+  },
+  "l2QrPairingDesc": {
+    "message": "Pair with PushWarden on your phone. Enter your relay address, then scan the QR code with the phone."
+  },
+  "l2ShowQr": {
+    "message": "Show QR code"
+  },
+  "l2ScanQrInstructions": {
+    "message": "On your phone, open PushWarden → Settings → Vault → Protected items → Computer approvals and scan this code."
+  },
+  "l2QrWaiting": {
+    "message": "Waiting for your phone… The code works once and expires in 2 minutes."
+  },
+  "l2PairManually": {
+    "message": "Pair manually instead"
+  },
+  "l2UseQr": {
+    "message": "Use a QR code instead"
+  },
+  "l2PhoneIdRequired": {
+    "message": "Enter the phone ID shown on your phone."
+  },
+  "l2PairedTitle": {
+    "message": "Paired"
+  },
+  "l2LevelBadge": {
+    "message": "Protected"
+  },
+  "l2ItemProtected": {
+    "message": "A computer needs your phone's OK to fill this password, or your protection password. Change it on your phone."
+  },
+  "l2CallLevel1": {
+    "message": "Standard"
+  },
+  "l2EditCallout": {
+    "message": "This item is protected. Its password and verification code are encrypted for your phone, so you can't edit or copy it as a new item here. Edit it in PushWarden on your phone."
+  },
+  "welcomeTitle": {
+    "message": "Welcome to PushWarden"
+  },
+  "welcomeIntro": {
+    "message": "PushWarden is an independent fork of Bitwarden with phone approval. Sign in with your existing Bitwarden account: your vault stays on Bitwarden's servers and keeps working with the official apps."
+  },
+  "welcomeProtectedTitle": {
+    "message": "Protected items"
+  },
+  "welcomeProtectedBody": {
+    "message": "Mark your most important logins as Protected. This browser can fill a protected password only after you approve it on your phone, or after you type your protection password. Malware on this computer can't read them from your vault."
+  },
+  "welcomeSetupTitle": {
+    "message": "Set it up"
+  },
+  "welcomeSetupStep1": {
+    "message": "Install PushWarden on your phone, sign in, and open Settings → Vault → Protected items to choose a protection password."
+  },
+  "welcomeSetupStep2": {
+    "message": "In this extension, open Settings → Phone approval, enter your relay address and show the QR code. On the phone, open Settings → Vault → Protected items → Computer approvals and scan it."
+  },
+  "welcomeSetupStep3": {
+    "message": "On the phone, edit a login and set Protection to Protected."
+  },
+  "welcomeNotAffiliated": {
+    "message": "PushWarden is not affiliated with Bitwarden, Inc."
+  },
+  "welcomeGetStarted": {
+    "message": "Get started"
   }
 }

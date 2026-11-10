@@ -120,6 +120,14 @@
                   [appA11yTitle]="orgIconTooltip(cipher)"
                 ></i>
               }
+              @if (isL2Like(cipher)) {
+                <bit-icon
+                  name="bwi-lock"
+                  class="bwi-sm"
+                  data-testid="l2-icon"
+                  [appA11yTitle]="'l2LevelBadge' | i18n"
+                ></bit-icon>
+              }
               @if (CipherViewLikeUtils.hasAttachments(cipher)) {
                 <bit-icon
                   name="bwi-paperclip"

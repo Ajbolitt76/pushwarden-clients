@@ -204,6 +204,28 @@ describe("AddEditComponent", () => {
     });
   });
 
+  describe("level 2 items", () => {
+    const l2View = { type: CipherType.Login, login: { password: "l2:v1.blob" } } as any;
+
+    it.each([
+      ["edit", { cipherId: "222-333-444-5555" }],
+      ["clone", { cipherId: "222-333-444-5555", clone: "true" }],
+    ])(
+      "shows the phone notice instead of the form in %s mode",
+      fakeAsync((_mode: string, params: Record<string, string>) => {
+        buildConfigResponse.originalCipher = { edit: true, id: "222-333-444-5555" } as Cipher;
+        cipherServiceMock.decrypt.mockResolvedValue(l2View);
+        queryParams$.next(params);
+        tick();
+        fixture.detectChanges();
+
+        const el: HTMLElement = fixture.nativeElement;
+        expect(el.querySelector("[data-testid=l2-edit-callout]")).not.toBeNull();
+        expect(el.querySelector("vault-cipher-form")).toBeNull();
+      }),
+    );
+  });
+
   describe("analytics", () => {
     it("does not log viewed event when mode is add", fakeAsync(() => {
       queryParams$.next({});

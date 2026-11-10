@@ -18,7 +18,7 @@ import { Cipher } from "@bitwarden/common/vault/models/domain/cipher";
 import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";
 import { LoginUriView } from "@bitwarden/common/vault/models/view/login-uri.view";
 import { LoginView } from "@bitwarden/common/vault/models/view/login.view";
-import { ToastService } from "@bitwarden/components";
+import { DialogService, ToastService } from "@bitwarden/components";
 import { PasswordRepromptService } from "@bitwarden/vault";
 
 import { AutofillOutcome } from "../../../autofill/enums/autofill-outcome.enum";
@@ -107,6 +107,7 @@ describe("VaultPopupAutofillService", () => {
     testBed = TestBed.configureTestingModule({
       providers: [
         { provide: AutofillService, useValue: mockAutofillService },
+        { provide: DialogService, useValue: mock<DialogService>() },
         { provide: DomainSettingsService, useValue: mockDomainSettingsService },
         { provide: I18nService, useValue: mockI18nService },
         { provide: ToastService, useValue: mockToastService },

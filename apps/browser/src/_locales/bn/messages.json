@@ -1,12 +1,12 @@
 {
   "appName": {
-    "message": "Bitwarden"
+    "message": "PushWarden"
   },
   "appLogoLabel": {
-    "message": "বিটওয়ার্ডেন লোগো"
+    "message": "PushWarden logo"
   },
   "extName": {
-    "message": "বিটওয়ার্ডেন পাসওয়ার্ড ম্যানেজার",
+    "message": "PushWarden Password Manager",
     "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
   },
   "extNameBeta": {
@@ -14,7 +14,7 @@
     "description": "Extension name for the beta channel, MUST be less than 40 characters (Safari restriction)"
   },
   "extDesc": {
-    "message": "বাড়িতে, অফিসে বা চলার পথে, বিটওয়ার্ডেন আপনার সমস্ত পাসওয়ার্ড, পাসকী এবং সংবেদনশীল তথ্য সহজে সুরক্ষিত করে",
+    "message": "Bitwarden-compatible password manager that keeps sensitive logins on your phone: approve fills there or use a second password.",
     "description": "Extension description, MUST be less than 112 characters (Safari restriction)"
   },
   "loginOrCreateNewAccount": {

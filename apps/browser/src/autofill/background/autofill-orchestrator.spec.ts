@@ -356,6 +356,20 @@ describe("DefaultAutofillOrchestrator", () => {
       expect(autofillService.doAutoFill).not.toHaveBeenCalled();
     });
 
+    it("abandons an L2 cipher on page load without surfacing a prompt", async () => {
+      const pd = pageDetail(1, 0);
+      autofillService.collectPageDetailsFromTab$.mockReturnValue(of([pd]));
+      cipherService.getLastUsedForUrl.mockResolvedValue(
+        makeCipher(CipherType.Login, { login: { password: "l2:v1:AAAA" } as any }),
+      );
+
+      emitPageTransition(pd);
+      await flushPromises();
+
+      expect(autofillService.isPasswordRepromptRequired).not.toHaveBeenCalled();
+      expect(autofillService.doAutoFill).not.toHaveBeenCalled();
+    });
+
     it("security: validates a sub-frame against its live frame url and scopes the collect to it", async () => {
       // Security bound (correct-origin): a credential reaches only the origin it was chosen for. A
       // sub-frame's url is not the tab's, so it is re-resolved live via getFrameDetails and the fill

@@ -7,6 +7,12 @@
 
   <bit-item-group>
     <bit-item>
+      <a id="about_link_welcome" bit-item-content routerLink="/intro-carousel">
+        {{ "welcomeTitle" | i18n }}
+        <i slot="end" class="bwi bwi-angle-right" aria-hidden="true"></i>
+      </a>
+    </bit-item>
+    <bit-item>
       <button type="button" bit-item-content (click)="troubleshoot()">
         {{ "troubleshooting" | i18n }}
       </button>

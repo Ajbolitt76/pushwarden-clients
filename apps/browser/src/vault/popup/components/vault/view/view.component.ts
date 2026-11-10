@@ -55,6 +55,7 @@ import {
   PasswordRepromptService,
 } from "@bitwarden/vault";
 
+import { isL2Cipher } from "../../../../../autofill/l2/l2-cipher";
 import { sendExtensionMessage } from "../../../../../autofill/utils/index";
 import { BrowserApi } from "../../../../../platform/browser/browser-api";
 import BrowserPopupUtils from "../../../../../platform/browser/browser-popup-utils";
@@ -116,6 +117,7 @@ type LoadAction =
 })
 export class ViewComponent {
   private readonly configService = inject(ConfigService);
+  protected readonly isL2Cipher = isL2Cipher;
 
   private activeUserId: UserId;
 

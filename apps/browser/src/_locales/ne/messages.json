@@ -1,12 +1,12 @@
 {
   "appName": {
-    "message": "Bitwarden"
+    "message": "PushWarden"
   },
   "appLogoLabel": {
-    "message": "Bitwarden लोगो"
+    "message": "PushWarden logo"
   },
   "extName": {
-    "message": "Bitwarden Password Manager",
+    "message": "PushWarden Password Manager",
     "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
   },
   "extNameBeta": {
@@ -14,7 +14,7 @@
     "description": "Extension name for the beta channel, MUST be less than 40 characters (Safari restriction)"
   },
   "extDesc": {
-    "message": "घरमा, काममा, वा यात्रामा, Bitwarden ले तपाईंका सबै पासवर्ड, पासकी, र संवेदनशील जानकारी सजिलै सुरक्षित गर्दछ",
+    "message": "Bitwarden-compatible password manager that keeps sensitive logins on your phone: approve fills there or use a second password.",
     "description": "Extension description, MUST be less than 112 characters (Safari restriction)"
   },
   "loginOrCreateNewAccount": {

@@ -54,6 +54,7 @@ import { openVaultItemPasswordRepromptPopout } from "../../vault/popup/utils/vau
 import { AutofillMessageCommand, AutofillMessageSender } from "../enums/autofill-message.enums";
 import { AutofillOutcome } from "../enums/autofill-outcome.enum";
 import { InlineMenuFillTypes, type InlineMenuFillType } from "../enums/autofill-overlay.enum";
+import { isL2Cipher } from "../l2/l2-cipher";
 import AutofillField from "../models/autofill-field";
 import AutofillPageDetails from "../models/autofill-page-details";
 import AutofillScript from "../models/autofill-script";
@@ -485,6 +486,11 @@ export default class AutofillService implements AutofillServiceInterface {
       return AUTOFILL_DENIED;
     }
 
+    // L2 ciphertext is never filled; callers pass a plaintext copy from L2Service.
+    if (isL2Cipher(options.cipher)) {
+      return AUTOFILL_DENIED;
+    }
+
     const activeAccount = await firstValueFrom(this.accountService.activeAccount$);
     let canAccessPremium = false;
     if (activeAccount?.id) {
@@ -607,7 +613,11 @@ export default class AutofillService implements AutofillServiceInterface {
     action?: string,
   ): Promise<boolean> {
     const userHasMasterPassword = await this.userVerificationService.hasMasterPassword();
-    if (cipher.reprompt === CipherRepromptType.Password && userHasMasterPassword) {
+    // L2 items open the same popout, where the L2 fill dialog asks for the phone or L2 password.
+    if (
+      (cipher.reprompt === CipherRepromptType.Password && userHasMasterPassword) ||
+      isL2Cipher(cipher)
+    ) {
       if (!this.isDebouncingPasswordRepromptPopout()) {
         await this.openVaultItemPasswordRepromptPopout(tab, {
           cipherId: cipher.id,

@@ -27,6 +27,7 @@ import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";
 
 import { BrowserApi } from "../../platform/browser/browser-api";
 import { AutofillOutcome } from "../enums/autofill-outcome.enum";
+import { isL2Cipher } from "../l2/l2-cipher";
 import {
   AutofillLifecycleService,
   AutomationWorkflow,
@@ -549,7 +550,7 @@ export class DefaultAutofillOrchestrator implements AutofillOrchestrator {
     fromCommand: boolean,
     cycleKey: string,
   ): Promise<boolean> {
-    if (cipher.reprompt === CipherRepromptType.Password && !fromCommand) {
+    if ((cipher.reprompt === CipherRepromptType.Password || isL2Cipher(cipher)) && !fromCommand) {
       return true;
     }
     if (await this.autofillService.isPasswordRepromptRequired(cipher, target)) {

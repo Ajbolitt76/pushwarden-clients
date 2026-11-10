@@ -3,6 +3,7 @@ import { mock } from "jest-mock-extended";
 import { of } from "rxjs";
 
 import { Account, AccountService } from "@bitwarden/common/auth/abstractions/account.service";
+import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { CipherId, UserId } from "@bitwarden/common/types/guid";
 import {
   CipherService,
@@ -43,11 +44,53 @@ describe("DefaultCipherFormService", () => {
           useValue: { activeAccount$: of({ id: "user-1" as UserId } as Account) },
         },
         { provide: RevealedCipherService, useValue: revealedCipherServiceMock },
+        { provide: I18nService, useValue: { t: (key: string) => key } },
         DefaultCipherFormService,
       ],
     });
 
     service = testBed.inject(DefaultCipherFormService);
+  });
+
+  describe("level 2 items", () => {
+    const l2Original = (password: string, totp?: string) => {
+      const view = new CipherView();
+      view.id = "cipher-1";
+      view.type = CipherType.Login;
+      view.login = new LoginView();
+      view.login.password = password;
+      view.login.totp = totp;
+      cipherServiceMock.decrypt.mockResolvedValue(view);
+    };
+    const edited = (password: string, totp?: string) => {
+      const view = new CipherView();
+      view.id = "cipher-1";
+      view.type = CipherType.Login;
+      view.login = new LoginView();
+      view.login.password = password;
+      view.login.totp = totp;
+      return view;
+    };
+    const config = { originalCipher: new Cipher(), admin: false } as CipherFormConfig;
+
+    it.each([
+      ["password", "l2:v1:AAAA", undefined, "plain", undefined],
+      ["totp", "l2:v1:AAAA", "l2:v1:BBBB", "l2:v1:AAAA", "JBSWY3DPEHPK3PXP"],
+    ])("refuses to save a plaintext %s over an L2 value", async (_, p0, t0, p1, t1) => {
+      l2Original(p0, t0);
+      cipherServiceMock.updateWithServer.mockClear();
+
+      await expect(service.saveCipher(edited(p1, t1), config)).rejects.toThrow("l2EditOnPhone");
+      expect(cipherServiceMock.updateWithServer).not.toHaveBeenCalled();
+    });
+
+    it("saves other edits that keep the L2 value", async () => {
+      l2Original("l2:v1:AAAA");
+      cipherServiceMock.updateWithServer.mockResolvedValue({} as any);
+
+      await service.saveCipher(edited("l2:v1:AAAA"), config);
+      expect(cipherServiceMock.updateWithServer).toHaveBeenCalled();
+    });
   });
 
   describe("markAssociatedTaskAsComplete", () => {

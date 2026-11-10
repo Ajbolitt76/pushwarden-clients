@@ -45,6 +45,7 @@ import {
   ADD_TO_LOCKED_VAULT_PENDING_NOTIFICATIONS,
   RETRY_SENDER,
 } from "../background/abstractions/notification.background";
+import { isL2Cipher } from "../l2/l2-cipher";
 import { AutofillTriageService } from "../services/abstractions/autofill-triage.service";
 import { WebmapperDraftService } from "../services/webmapper-draft.service";
 import { AutofillCipherTypeId } from "../types";
@@ -264,7 +265,8 @@ export class ContextMenuClickedHandler {
           break;
         }
 
-        if (!cipher || !cipher.login?.password) {
+        // Level 2 values are ciphertext: never copy them (isL2Cipher covers password and TOTP).
+        if (!cipher || !cipher.login?.password || isL2Cipher(cipher)) {
           break;
         }
 
@@ -289,7 +291,7 @@ export class ContextMenuClickedHandler {
           break;
         }
 
-        if (!cipher || !cipher.login?.totp) {
+        if (!cipher || !cipher.login?.totp || isL2Cipher(cipher)) {
           break;
         }
 

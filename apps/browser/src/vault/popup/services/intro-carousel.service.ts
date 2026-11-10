@@ -10,7 +10,8 @@ import {
 
 const INTRO_CAROUSEL = new KeyDefinition<boolean>(
   VAULT_BROWSER_INTRO_CAROUSEL,
-  "introCarouselDismissed",
+  // PushWarden: new key so installs that dismissed Bitwarden's carousel still see the welcome once.
+  "pushwardenWelcomeDismissed",
   {
     deserializer: (dismissed) => dismissed,
   },

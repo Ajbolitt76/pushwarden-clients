@@ -33,6 +33,7 @@ import {
   IconButtonModule,
   DialogService,
   ToastService,
+  CalloutModule,
 } from "@bitwarden/components";
 import {
   CipherFormComponent,
@@ -47,6 +48,7 @@ import {
 } from "@bitwarden/vault";
 
 import { BrowserFido2UserInterfaceSession } from "../../../../../autofill/fido2/services/browser-fido2-user-interface.service";
+import { isL2Cipher } from "../../../../../autofill/l2/l2-cipher";
 import { BrowserApi } from "../../../../../platform/browser/browser-api";
 import BrowserPopupUtils from "../../../../../platform/browser/browser-popup-utils";
 import { PopOutComponent } from "../../../../../platform/popup/components/pop-out.component";
@@ -190,6 +192,7 @@ export type AddEditQueryParams = Partial<Record<keyof QueryParams, string>>;
     ChipActionComponent,
     PopOutComponent,
     IconButtonModule,
+    CalloutModule,
   ],
 })
 export class AddEditComponent implements OnInit, OnDestroy {
@@ -197,6 +200,8 @@ export class AddEditComponent implements OnInit, OnDestroy {
 
   headerText: string;
   config: CipherFormConfig;
+  /** The item being edited is level 2. */
+  protected isL2 = false;
   canDeleteCipher$: Observable<boolean>;
   routeAfterDeletion: ROUTES_AFTER_EDIT_DELETION = "/tabs/vault";
   protected saveAndFillEnabled = false;
@@ -453,7 +458,26 @@ export class AddEditComponent implements OnInit, OnDestroy {
             await this.cipherService.setAddEditCipherInfo(null, activeUserId);
           }
 
+          if (config.mode === "clone" && config.originalCipher) {
+            // A clone would copy L2 values bound to the original item's ID, so they could never be filled.
+            try {
+              this.isL2 = isL2Cipher(
+                await this.cipherService.decrypt(config.originalCipher, activeUserId),
+              );
+            } catch {
+              this.isL2 = false;
+            }
+          }
+
           if (["edit", "partial-edit"].includes(config.mode) && config.originalCipher?.id) {
+            // This extension can't decrypt level 2 values, so L2 items are edited on the phone only.
+            try {
+              this.isL2 = isL2Cipher(
+                await this.cipherService.decrypt(config.originalCipher, activeUserId),
+              );
+            } catch {
+              this.isL2 = false;
+            }
             this.canDeleteCipher$ = this.cipherAuthorizationService.canDeleteCipher$(
               config.originalCipher,
             );

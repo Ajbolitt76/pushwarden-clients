@@ -5,6 +5,7 @@ import { firstValueFrom, map } from "rxjs";
 
 import { AccountService } from "@bitwarden/common/auth/abstractions/account.service";
 import { getUserId } from "@bitwarden/common/auth/services/account.service";
+import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { CipherId, UserId, OrganizationId } from "@bitwarden/common/types/guid";
 import {
   CipherService,
@@ -28,6 +29,7 @@ export class DefaultCipherFormService implements CipherFormService {
   private cipherService: CipherService = inject(CipherService);
   private accountService: AccountService = inject(AccountService);
   private taskService: TaskService = inject(TaskService);
+  private i18nService: I18nService = inject(I18nService);
   private revealedCipherService: RevealedCipherService = inject(RevealedCipherService);
 
   /** A restricted cipher resolves to a copy of its revealed view, since the form mutates it. */
@@ -60,6 +62,16 @@ export class DefaultCipherFormService implements CipherFormService {
     }
     // For a restricted cipher this is a copy of the revealed view, the original its edit needs.
     const originalCipherView = await this.decryptCipher(config.originalCipher);
+
+    // Level 2 (PROTOCOL.md §2): this client can't re-seal, so plaintext must never replace an
+    // L2 value. Such items are edited on the phone.
+    for (const field of ["password", "totp"] as const) {
+      const before = originalCipherView.login?.[field];
+      const after = cipher.login?.[field];
+      if (before?.startsWith("l2:") && after != null && after !== "" && !after.startsWith("l2:")) {
+        throw new Error(this.i18nService.t("l2EditOnPhone"));
+      }
+    }
 
     // Updating an existing cipher
 

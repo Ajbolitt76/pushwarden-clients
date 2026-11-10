@@ -16,7 +16,7 @@ import {
 } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { Router } from "@angular/router";
-import { firstValueFrom, map } from "rxjs";
+import { firstValueFrom, map, switchMap } from "rxjs";
 
 import { JslibModule } from "@bitwarden/angular/jslib.module";
 import { AccountService } from "@bitwarden/common/auth/abstractions/account.service";
@@ -50,6 +50,7 @@ import {
   PasswordRepromptService,
 } from "@bitwarden/vault";
 
+import { isL2Cipher } from "../../../../../autofill/l2/l2-cipher";
 import { BrowserApi } from "../../../../../platform/browser/browser-api";
 import BrowserPopupUtils from "../../../../../platform/browser/browser-popup-utils";
 import { VaultPopupAutofillService } from "../../../services/vault-popup-autofill.service";
@@ -136,6 +137,29 @@ export class VaultListItemsContainerComponent {
   private viewCipherTimeout?: number;
 
   readonly ciphers = input<PopupCipherViewLike[]>([]);
+
+  private readonly l2Ciphers = inject(CipherService);
+
+  /**
+   * Ids of level 2 logins. List views from the SDK carry no password, so they come from the
+   * full decrypted vault, which the extension keeps for autofill anyway.
+   */
+  private readonly l2Ids = toSignal(
+    inject(AccountService).activeAccount$.pipe(
+      getUserId,
+      switchMap((userId) => this.l2Ciphers.cipherViews$(userId)),
+      map((views) => new Set((views ?? []).filter(isL2Cipher).map((v) => v.id))),
+    ),
+    { initialValue: new Set<string>() },
+  );
+
+  /** Level 2 marker for a list row. */
+  protected isL2Like(cipher: CipherViewLike): boolean {
+    if (!CipherViewLikeUtils.isCipherListView(cipher)) {
+      return isL2Cipher(cipher);
+    }
+    return cipher.id != null && this.l2Ids().has(uuidAsString(cipher.id));
+  }
 
   /**
    * If true, we will group ciphers by type (Login, Card, Identity)

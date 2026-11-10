@@ -365,6 +365,7 @@ import {
   BrowserFido2ParentWindowReference,
   BrowserFido2UserInterfaceService,
 } from "../autofill/fido2/services/browser-fido2-user-interface.service";
+import { L2Service } from "../autofill/l2/l2.service";
 import { AutofillLifecycleService } from "../autofill/services/abstractions/autofill-lifecycle.service";
 import { AutofillService as AutofillServiceAbstraction } from "../autofill/services/abstractions/autofill.service";
 import { AutofillBadgeUpdaterService } from "../autofill/services/autofill-badge-updater.service";
@@ -468,6 +469,7 @@ export default class MainBackground {
   autofillLifecycleService: AutofillLifecycleService;
   autofillService: AutofillServiceAbstraction;
   autofillOrchestrator: AutofillOrchestrator;
+  l2Service: L2Service;
   containerService: ContainerService;
   auditService: AuditServiceAbstraction;
   authService: AuthServiceAbstraction;
@@ -1383,6 +1385,7 @@ export default class MainBackground {
       () => this.updateOverlayCiphers(),
       this.logService,
     );
+    this.l2Service = new L2Service(this.cipherService, this.stateProvider);
     this.auditService = new AuditService(
       this.cryptoFunctionService,
       this.apiService,

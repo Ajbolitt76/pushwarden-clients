@@ -1,0 +1,55 @@
+<form [formGroup]="formGroup" [bitSubmit]="fillWithPassword" bit-dialog>
+  <span bitDialogTitle>{{ "l2FillTitle" | i18n }}</span>
+  <ng-container bitDialogContent>
+    <p bitTypography="body2">{{ "l2FillDesc" | i18n: params.host }}</p>
+
+    <button
+      id="l2-fill-dialog_button_approve-on-phone"
+      bitButton
+      buttonType="primary"
+      type="button"
+      block
+      [bitAction]="approveOnPhone"
+    >
+      {{ (waitingForPhone() ? "l2WaitingForPhone" : "l2ApproveOnPhone") | i18n }}
+    </button>
+
+    <bit-form-field disableMargin class="tw-mt-6">
+      <bit-label>{{ "l2Password" | i18n }}</bit-label>
+      <input
+        id="l2-fill-dialog_input_l2-password"
+        bitInput
+        type="password"
+        autocomplete="off"
+        formControlName="l2Password"
+      />
+      <button type="button" bitSuffix bitIconButton bitPasswordInputToggle></button>
+      <bit-hint>{{ "l2PasswordHint" | i18n }}</bit-hint>
+    </bit-form-field>
+
+    @if (error(); as message) {
+      <p bitTypography="body2" class="tw-mt-4 tw-text-danger" role="alert">{{ message }}</p>
+    }
+  </ng-container>
+
+  <ng-container bitDialogFooter>
+    <button
+      id="l2-fill-dialog_button_fill-with-password"
+      bitButton
+      buttonType="secondary"
+      bitFormButton
+      type="submit"
+    >
+      {{ "l2FillWithPassword" | i18n }}
+    </button>
+    <button
+      id="l2-fill-dialog_button_cancel"
+      bitButton
+      buttonType="secondary"
+      bitDialogClose
+      type="button"
+    >
+      {{ "cancel" | i18n }}
+    </button>
+  </ng-container>
+</form>

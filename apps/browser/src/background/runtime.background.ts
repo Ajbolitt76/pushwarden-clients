@@ -42,6 +42,8 @@ import { isDefaultPasswordManagerPromptFeatureEnabled } from "../autofill/defaul
 import { DefaultPasswordManagerPromptStateAccessor } from "../autofill/default-password-manager-prompt-state.accessor";
 import { completePendingDefaultPasswordManagerApply } from "../autofill/default-password-manager-session.util";
 import { AutofillMessageCommand } from "../autofill/enums/autofill-message.enums";
+import { AutofillOutcome } from "../autofill/enums/autofill-outcome.enum";
+import { isL2Cipher } from "../autofill/l2/l2-cipher";
 import { AutofillLifecycleService } from "../autofill/services/abstractions/autofill-lifecycle.service";
 import { AutofillService } from "../autofill/services/abstractions/autofill.service";
 import { FORCE_TARGETING_RULES_UPDATE_COMMAND } from "../autofill/services/targeting-rules-data.service";
@@ -121,6 +123,13 @@ export default class RuntimeBackground {
         "getUrlAutofillTargetingRules",
         "collectPageDetailsForPopup",
         "fillCipherForPopup",
+        "l2Status",
+        "l2PairStart",
+        "l2PairConfirm",
+        "l2Unpair",
+        "l2PairCancel",
+        "l2QrStart",
+        "l2QrWait",
         "getBitwardenAutofillAttributeSettings",
         VaultMessages.checkBwInstalled,
       ];
@@ -205,8 +214,63 @@ export default class RuntimeBackground {
         // The only sender of `fillCipherForPopup` is an extension page, as confirmed by the
         // `BrowserApi.senderIsInternal(sender)` guard above, so this is never reachable from a
         // content-script-placed message.
+        if (isL2Cipher(cipher)) {
+          // Throws L2Error when the user can't unlock it; the popup shows the reason.
+          if (msg.l2 == null) {
+            return AUTOFILL_DENIED;
+          }
+          const plain = await this.main.l2Service.decryptForFill(
+            activeUserId,
+            cipher,
+            targetTab.url,
+            msg.l2,
+          );
+          // eslint-disable-next-line no-restricted-syntax
+          const result = await this.autofillOrchestrator.unsafeAutofillTabWithCipher(
+            targetTab,
+            plain.cipher,
+          );
+          return plain.totpCode && result.outcome === AutofillOutcome.Filled
+            ? { ...result, totp: plain.totpCode, canAutoCopyTotp: true }
+            : result;
+        }
         // eslint-disable-next-line no-restricted-syntax
         return await this.autofillOrchestrator.unsafeAutofillTabWithCipher(targetTab, cipher);
+      }
+      case "l2Status":
+      case "l2PairStart":
+      case "l2PairConfirm":
+      case "l2Unpair":
+      case "l2PairCancel":
+      case "l2QrStart":
+      case "l2QrWait": {
+        if (!BrowserApi.senderIsInternal(sender, this.logService)) {
+          return null;
+        }
+        const userId = await firstValueFrom(
+          this.accountService.activeAccount$.pipe(map((account) => account?.id)),
+        );
+        if (userId == null) {
+          return null;
+        }
+        const l2 = this.main.l2Service;
+        switch (msg.command) {
+          case "l2Status":
+            return await l2.status(userId);
+          case "l2PairStart":
+            return await l2.pairStart(userId, msg.relayUrl, msg.phoneId, msg.pcName);
+          case "l2PairConfirm":
+            return await l2.pairConfirm(userId);
+          case "l2Unpair":
+            return await l2.unpair(userId);
+          case "l2PairCancel":
+            return l2.pairCancel();
+          case "l2QrStart":
+            return await l2.qrStart(userId, msg.relayUrl, msg.pcName);
+          case "l2QrWait":
+            return await l2.qrWait(userId);
+        }
+        return null;
       }
       case AutofillMessageCommand.collectPageDetailsResponse: {
         // FIXME (PM-44218): remove this case once `browser-interactions-testing` triggers autofill
@@ -626,8 +690,6 @@ export default class RuntimeBackground {
           }
 
           if (!(await firstValueFrom(this.browserInitialInstallService.extensionInstalled$))) {
-            await this.browserInitialInstallService.displayWelcomePage();
-
             await this.autofillSettingsService.setInlineMenuVisibility(
               AutofillOverlayVisibility.OnFieldFocus,
             );

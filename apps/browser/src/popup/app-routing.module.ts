@@ -60,6 +60,8 @@ import { platformPopoutGuard } from "../auth/popup/guards/platform-popout.guard"
 import { AccountSecurityComponent } from "../auth/popup/settings/account-security.component";
 import { ChangePasswordPageComponent } from "../auth/popup/settings/change-password-page.component";
 import { ExtensionDeviceManagementComponent } from "../auth/popup/settings/extension-device-management.component";
+import { L2PairingComponent } from "../autofill/l2/popup/l2-pairing.component";
+import { WelcomeComponent } from "../autofill/l2/popup/welcome.component";
 import { AutofillToolsComponent } from "../autofill/popup/autofill-tools/autofill-tools.component";
 import { autofillToolsDevFlagGuard } from "../autofill/popup/autofill-tools/autofill-tools.guard";
 import { DefaultPasswordManagerPromptComponent } from "../autofill/popup/default-password-manager/default-password-manager-prompt.component";
@@ -99,7 +101,6 @@ import { AtRiskPasswordsComponent } from "../vault/popup/components/at-risk-pass
 import { AddEditComponent } from "../vault/popup/components/vault/add-edit/add-edit.component";
 import { AssignCollections } from "../vault/popup/components/vault/assign-collections/assign-collections.component";
 import { AttachmentsComponent } from "../vault/popup/components/vault/attachments/attachments.component";
-import { IntroCarouselComponent } from "../vault/popup/components/vault/intro-carousel/intro-carousel.component";
 import { NewItemPageComponent } from "../vault/popup/components/vault/new-item-page/new-item-page.component";
 import { PasswordHistoryComponent } from "../vault/popup/components/vault/vault-password-history/vault-password-history.component";
 import { VaultComponent } from "../vault/popup/components/vault/vault.component";
@@ -377,6 +378,12 @@ const routes: Routes = [
     component: NotificationsSettingsComponent,
     canActivate: [authGuard],
     data: { elevation: 1 } satisfies RouteDataProperties,
+  },
+  {
+    path: "l2-pairing",
+    component: L2PairingComponent,
+    canActivate: [authGuard],
+    data: { elevation: 2 } satisfies RouteDataProperties,
   },
   {
     path: "vault-settings",
@@ -761,20 +768,11 @@ const routes: Routes = [
     data: { elevation: 0, doNotSaveUrl: true } satisfies RouteDataProperties,
   },
   {
+    // PushWarden: the first-run route shows the PushWarden welcome instead of Bitwarden's carousel.
     path: "intro-carousel",
-    component: ExtensionAnonLayoutWrapperComponent,
+    component: WelcomeComponent,
     canActivate: [],
     data: { elevation: 0, doNotSaveUrl: true } satisfies RouteDataProperties,
-    children: [
-      {
-        path: "",
-        component: IntroCarouselComponent,
-        data: {
-          pageIcon: null,
-          hideFooter: true,
-        } satisfies ExtensionAnonLayoutWrapperData,
-      },
-    ],
   },
   {
     path: "confirm-key-connector-domain",

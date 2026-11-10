@@ -88,6 +88,7 @@ export * from "./no-send.icon";
 export * from "./party";
 export { default as PasswordManagerLogo } from "./password-manager";
 export { default as ProviderPortalLogo } from "./provider-portal";
+export * from "./pushwarden-shield.icon";
 export * from "./registration-check-email.icon";
 export * from "./registration-user-add.icon";
 export * from "./report-breach.icon";

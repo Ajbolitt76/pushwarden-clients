@@ -63,6 +63,13 @@ describe("CopyCipherFieldService", () => {
       skipReprompt = false;
     });
 
+    it("refuses to copy a level 2 value", async () => {
+      const result = await service.copy("l2:v1:AAAA", "password", cipher, true);
+
+      expect(result).toBe(false);
+      expect(platformUtilsService.copyToClipboard).not.toHaveBeenCalled();
+    });
+
     it("should return early when valueToCopy is null", async () => {
       valueToCopy = null;
       const result = await service.copy(valueToCopy, actionType, cipher, skipReprompt);

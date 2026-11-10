@@ -65,6 +65,7 @@ import {
 import { CollectionView } from "../content/components/common-types";
 import { NotificationType } from "../enums/notification-type.enum";
 import { Fido2Background } from "../fido2/background/abstractions/fido2.background";
+import { isL2Cipher } from "../l2/l2-cipher";
 import { AutofillService } from "../services/abstractions/autofill.service";
 
 import {
@@ -761,6 +762,12 @@ export default class NotificationBackground {
       activeUserId,
     );
 
+    // Never offer to save or update on a site with an L2 item: the filled password is the L2
+    // plaintext, and saving it would store it unprotected.
+    if (ciphersForURL.some(isL2Cipher)) {
+      return false;
+    }
+
     // Reducer structured to avoid subsequent array iterations
     const ciphersByInputMatchCategory = ciphersForURL.reduce<CiphersByInputMatchCategory>(
       (acc, { id, login }) => {
@@ -1287,6 +1294,11 @@ export default class NotificationBackground {
           queueMessage.data.uri,
           activeUserId,
         );
+        // Queued while locked, before L2 items could be seen: drop it (see L2 check above).
+        if (allCiphers.some(isL2Cipher)) {
+          await BrowserApi.tabSendMessage(tab, { command: "closeNotificationBar" });
+          return;
+        }
         const existingCipher = allCiphers.find(
           (c) =>
             c.login?.username != null &&
@@ -1349,6 +1361,11 @@ export default class NotificationBackground {
     userId: UserId,
     skipReprompt: boolean = false,
   ) {
+    if (isL2Cipher(cipherView)) {
+      // Would overwrite L2 ciphertext with plaintext; L2 items are changed on the phone.
+      await BrowserApi.tabSendMessage(tab, { command: "closeNotificationBar" });
+      return;
+    }
     cipherView.login.password = newPassword;
 
     if (edit) {

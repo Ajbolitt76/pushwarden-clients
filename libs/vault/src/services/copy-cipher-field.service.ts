@@ -172,6 +172,16 @@ export class CopyCipherFieldService {
       return false;
     }
 
+    // Level 2 values (PROTOCOL.md §2) are ciphertext here: refuse rather than copy them.
+    if (valueToCopy.startsWith("l2:")) {
+      this.toastService.showToast({
+        variant: "error",
+        message: this.i18nService.t("l2CannotCopy"),
+        title: "",
+      });
+      return false;
+    }
+
     const action = CopyActions[actionType];
     if (
       !skipReprompt &&

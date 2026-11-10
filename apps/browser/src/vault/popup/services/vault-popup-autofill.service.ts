@@ -31,10 +31,16 @@ import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.servi
 import { CipherRepromptType, CipherType } from "@bitwarden/common/vault/enums";
 import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";
 import { LoginUriView } from "@bitwarden/common/vault/models/view/login-uri.view";
-import { ToastService } from "@bitwarden/components";
+import { DialogService, ToastService } from "@bitwarden/components";
 import { PasswordRepromptService } from "@bitwarden/vault";
 
 import { AutofillOutcome } from "../../../autofill/enums/autofill-outcome.enum";
+import { isL2Cipher } from "../../../autofill/l2/l2-cipher";
+import type { L2Unlock } from "../../../autofill/l2/l2.service";
+import {
+  L2FillAttempt,
+  L2FillDialogComponent,
+} from "../../../autofill/l2/popup/l2-fill-dialog.component";
 import { PageDetail } from "../../../autofill/services/abstractions/autofill.service";
 import { InlineMenuFieldQualificationService } from "../../../autofill/services/inline-menu-field-qualification.service";
 import { didFillOccur, FillResult, shouldAutoCopyTotp } from "../../../autofill/types/fill-result";
@@ -283,8 +289,31 @@ export class VaultPopupAutofillService {
     private accountService: AccountService,
     private logService: LogService,
     private inlineMenuFieldQualificationService: InlineMenuFieldQualificationService,
+    private dialogService: DialogService,
   ) {
     this._currentPageDetails$.subscribe();
+  }
+
+  /** Asks the background to fill `cipher` into `tab`; `l2` unlocks an L2 item for this fill. */
+  private async sendFill(cipher: CipherView, tab: chrome.tabs.Tab, l2?: L2Unlock) {
+    return await BrowserApi.sendMessageWithResponse<{
+      result?: FillResult;
+      error?: { code?: string };
+    }>("fillCipherForPopup", { tabId: tab.id, tabUrl: tab.url, cipherId: cipher.id, l2 });
+  }
+
+  /** Shows the L2 dialog; resolves with the fill result, or `undefined` if the user cancelled. */
+  private async fillL2(cipher: CipherView, tab: chrome.tabs.Tab): Promise<FillResult | undefined> {
+    const ref = L2FillDialogComponent.open(this.dialogService, {
+      host: Utils.getHostname(tab.url) ?? "",
+      fill: async (l2): Promise<L2FillAttempt> => {
+        const response = await this.sendFill(cipher, tab, l2);
+        return response?.result
+          ? { result: response.result }
+          : { error: response?.error?.code ?? "unknown" };
+      },
+    });
+    return await firstValueFrom(ref.closed);
   }
 
   private async _internalDoAutofill(
@@ -311,10 +340,15 @@ export class VaultPopupAutofillService {
 
     try {
       // The cipher is sent by id so decrypted vault data stays off the message channel.
-      const response = await BrowserApi.sendMessageWithResponse<{
-        result?: FillResult;
-      }>("fillCipherForPopup", { tabId: tab.id, tabUrl: tab.url, cipherId: cipher.id });
-      const fillResult = response?.result;
+      let fillResult: FillResult | undefined;
+      if (isL2Cipher(cipher)) {
+        fillResult = await this.fillL2(cipher, tab);
+        if (fillResult === undefined) {
+          return false; // cancelled in the L2 dialog
+        }
+      } else {
+        fillResult = (await this.sendFill(cipher, tab))?.result;
+      }
       if (!fillResult || !didFillOccur(fillResult)) {
         this._reportAutofillFailure();
         return false;

@@ -1,0 +1,111 @@
+<popup-page>
+  <popup-header slot="header" pageTitle="{{ 'l2PhoneApproval' | i18n }}" showBackButton>
+    <ng-container slot="end">
+      <app-pop-out></app-pop-out>
+    </ng-container>
+  </popup-header>
+
+  <bit-section>
+    <bit-card>
+      @if (status()?.paired) {
+        <p bitTypography="body1" class="tw-font-semibold">{{ "l2PairedTitle" | i18n }}</p>
+        <p bitTypography="body2">{{ "l2PairedWith" | i18n: status()?.phoneId }}</p>
+        <button
+          id="l2-pairing_button_unpair"
+          bitButton
+          buttonType="danger"
+          type="button"
+          [bitAction]="unpair"
+        >
+          {{ "l2Unpair" | i18n }}
+        </button>
+      } @else if (qrUri()) {
+        <p bitTypography="body2">{{ "l2ScanQrInstructions" | i18n }}</p>
+        <div class="tw-flex tw-justify-center tw-my-4">
+          <canvas #qrCanvas data-testid="l2-pairing-qr" class="tw-rounded-lg"></canvas>
+        </div>
+        <p bitTypography="helper" class="tw-text-muted">{{ "l2QrWaiting" | i18n }}</p>
+        <button
+          id="l2-pairing_button_cancel-qr"
+          bitButton
+          buttonType="secondary"
+          type="button"
+          [bitAction]="cancel"
+        >
+          {{ "cancel" | i18n }}
+        </button>
+      } @else if (phrase(); as words) {
+        <p bitTypography="body2">{{ "l2ComparePhrase" | i18n }}</p>
+        <p bitTypography="h5" class="tw-font-mono tw-break-words" data-testid="l2-phrase">
+          {{ words }}
+        </p>
+        <div class="tw-flex tw-gap-2">
+          <button
+            id="l2-pairing_button_confirm"
+            bitButton
+            buttonType="primary"
+            type="button"
+            [bitAction]="confirm"
+          >
+            {{ "l2PhraseMatches" | i18n }}
+          </button>
+          <button
+            id="l2-pairing_button_cancel"
+            bitButton
+            buttonType="secondary"
+            type="button"
+            [bitAction]="cancel"
+          >
+            {{ "cancel" | i18n }}
+          </button>
+        </div>
+      } @else {
+        <form [formGroup]="form" [bitSubmit]="manual() ? start : showQr">
+          <p bitTypography="body2">
+            {{ (manual() ? "l2PairingDesc" : "l2QrPairingDesc") | i18n }}
+          </p>
+          <bit-form-field>
+            <bit-label>{{ "l2RelayUrl" | i18n }}</bit-label>
+            <input id="l2-pairing_input_relay-url" bitInput formControlName="relayUrl" />
+          </bit-form-field>
+          <bit-form-field>
+            <bit-label>{{ "l2PcName" | i18n }}</bit-label>
+            <input id="l2-pairing_input_pc-name" bitInput formControlName="pcName" />
+          </bit-form-field>
+          @if (manual()) {
+            <bit-form-field>
+              <bit-label>{{ "l2PhoneId" | i18n }}</bit-label>
+              <input
+                id="l2-pairing_input_phone-id"
+                bitInput
+                formControlName="phoneId"
+                placeholder="ab12-cd34"
+              />
+            </bit-form-field>
+          }
+          <button
+            id="l2-pairing_button_start"
+            bitButton
+            buttonType="primary"
+            bitFormButton
+            type="submit"
+          >
+            {{ (manual() ? "l2Pair" : "l2ShowQr") | i18n }}
+          </button>
+          <button
+            id="l2-pairing_button_toggle-manual"
+            bitLink
+            type="button"
+            class="tw-ml-3"
+            (click)="manual.set(!manual())"
+          >
+            {{ (manual() ? "l2UseQr" : "l2PairManually") | i18n }}
+          </button>
+        </form>
+      }
+      @if (error(); as message) {
+        <p bitTypography="body2" class="tw-mt-4 tw-text-danger" role="alert">{{ message }}</p>
+      }
+    </bit-card>
+  </bit-section>
+</popup-page>
