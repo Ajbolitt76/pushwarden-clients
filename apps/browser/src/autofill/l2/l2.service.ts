@@ -85,7 +85,7 @@ interface PendingPairing {
 }
 
 /**
- * Background side of L2 fills (DESIGN.md, PROTOCOL.md): turns an L2 cipher into a plaintext
+ * Background side of L2 fills (PROTOCOL.md §6): turns an L2 cipher into a plaintext
  * copy, either with the L2 password or with an approval from the paired phone, and pairs the
  * extension with a phone.
  */
