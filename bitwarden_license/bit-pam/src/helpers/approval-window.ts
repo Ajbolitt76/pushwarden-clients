@@ -24,17 +24,6 @@ export function durationText(
 }
 
 /**
- * The requested duration in words, e.g. "2 days, 2 hours". The same spelling the My requests
- * table uses through `durationCompound`.
- */
-export function durationText(
-  window: Pick<AccessRequestView, "leaseNotBefore" | "leaseNotAfter">,
-  locale: string,
-): string {
-  return formatCompoundDuration(locale, requestedWindowSeconds(window), "long");
-}
-
-/**
  * When the window opens, e.g. "tomorrow". The server always resolves the start, so "starting now"
  * means it has passed rather than that it is missing.
  */
