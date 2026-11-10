@@ -29,8 +29,8 @@ jobs:
           npm run dist:chrome
           npm run dist:firefox
           mkdir -p ../../dist
-          mv dist/dist-chrome.zip "../../dist/pushwarden-chrome-${GITHUB_REF_NAME}.zip"
-          mv dist/dist-firefox.zip "../../dist/pushwarden-firefox-${GITHUB_REF_NAME}.zip"
+          mv dist/dist-chrome.zip "../../dist/pushwarden-chrome-${GITHUB_REF_NAME#pushwarden-}.zip"
+          mv dist/dist-firefox.zip "../../dist/pushwarden-firefox-${GITHUB_REF_NAME#pushwarden-}.zip"
 
       - uses: actions/upload-artifact@v4
         with:
