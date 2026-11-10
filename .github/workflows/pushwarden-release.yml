@@ -1,0 +1,44 @@
+name: PushWarden release
+
+# Push a tag like v2026.11.0 to build the Chrome and Firefox extension zips and attach them to a GitHub release.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  extension:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      # OSS builds only (no bitwarden_license code).
+      - name: Build
+        working-directory: apps/browser
+        run: |
+          npm run dist:chrome
+          npm run dist:firefox
+          mkdir -p ../../dist
+          mv dist/dist-chrome.zip "../../dist/pushwarden-chrome-${GITHUB_REF_NAME}.zip"
+          mv dist/dist-firefox.zip "../../dist/pushwarden-firefox-${GITHUB_REF_NAME}.zip"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: extension
+          path: dist/*.zip
+
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "$GITHUB_REF_NAME" dist/*.zip --clobber || gh release create "$GITHUB_REF_NAME" dist/*.zip --generate-notes
