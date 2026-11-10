@@ -488,9 +488,7 @@ describe("CipherViewBannerComponent", () => {
     });
 
     it("shows the item as unavailable, with no Request access, when the rule refuses a request", async () => {
-      requestsApi.getCipherAccessState.mockResolvedValue(
-        accessState({ badgeState: "unavailable" }),
-      );
+      requestsApi.getCipherAccessState.mockResolvedValue(accessState({ badgeState: UNAVAILABLE }));
 
       await create(gatedCipher());
 
@@ -503,9 +501,7 @@ describe("CipherViewBannerComponent", () => {
     });
 
     it("drops the full-width Request access button but keeps the section heading, in the popup", async () => {
-      requestsApi.getCipherAccessState.mockResolvedValue(
-        accessState({ badgeState: "unavailable" }),
-      );
+      requestsApi.getCipherAccessState.mockResolvedValue(accessState({ badgeState: UNAVAILABLE }));
       usePopupLayout();
 
       await create(gatedCipher());
@@ -518,9 +514,7 @@ describe("CipherViewBannerComponent", () => {
     });
 
     it("offers Request access again once the rule allows a request", async () => {
-      requestsApi.getCipherAccessState.mockResolvedValue(
-        accessState({ badgeState: "unavailable" }),
-      );
+      requestsApi.getCipherAccessState.mockResolvedValue(accessState({ badgeState: UNAVAILABLE }));
       await create(gatedCipher());
 
       await refreshTo(accessState());
@@ -928,7 +922,7 @@ describe("CipherViewBannerComponent", () => {
       },
       {
         name: "unavailable",
-        state: { badgeState: "unavailable" },
+        state: { badgeState: UNAVAILABLE },
         testId: "unavailable",
         glyph: ACCESS_BADGE_LOOK.unavailable.icon,
       },
