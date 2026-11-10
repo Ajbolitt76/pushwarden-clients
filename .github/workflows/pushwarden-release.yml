@@ -1,9 +1,9 @@
 name: PushWarden release
 
-# Push a tag like v2026.11.0 to build the Chrome and Firefox extension zips and attach them to a GitHub release.
+# Push a tag like pushwarden-v0.1.0 to build the Chrome and Firefox extension zips and attach them to a GitHub release.
 on:
   push:
-    tags: ["v*"]
+    tags: ["pushwarden-v*"]
   workflow_dispatch:
 
 permissions:
